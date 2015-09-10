@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>TimelineMe by mickaelr</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/jquery.timelineMe.css">
+  </head>
+  
+  <body>
+    <div id="timeline-container"></div>
+
+    <br><br><br><br><br><br><br><br><br>
+    <div onclick="addContent();">addContent</div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="js/jquery.timelineMe.js"></script>
+    <script type="text/javascript">
+      function addContent() {
+        $('.timeline-me-shortcontent').first().append($('<div>TEST</div>'));
+      }
+
+      $(document).ready(function() {
+        $('#timeline-container').timelineMe({
+          items: [
+            {
+              type: 'milestone',
+              label: 'my label',
+              shortContent: 'short desc MS',
+              fullContent: 'big desc MS',
+              showMore: undefined,
+              showLess: undefined,
+              maxWidth: undefined,
+              maxHeight: undefined
+            },
+            {
+              type: 'smallItem',
+              label: 'my label',
+              shortContent: 'short desc SI',
+              fullContent: 'big desc SI',
+              showMore: 'show more',
+              showLess: 'show less',
+              maxWidth: undefined,
+              maxHeight: undefined
+            },
+            {
+              type: 'bigItem',
+              label: 'my label',
+              shortContent: 'short desc BI',
+              fullContent: 'big desc BI',
+              showMore: 'show more',
+              showLess: 'show less',
+              maxWidth: undefined,
+              maxHeight: undefined
+            }
+          ]
+        });
+      });
+    </script>
+  </body>
+
+</html>

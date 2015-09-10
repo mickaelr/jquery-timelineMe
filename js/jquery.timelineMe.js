@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------
- *JAVASCRIPT "timeline.js"
- *Version:    0.0.1 - 2015
+ *JAVASCRIPT "timelineMe.js"
+ *Version:    0.0.2 - 2015
  *author:     Mickaël Roy
  *website:    http://www.mickaelroy.com
  *Licensed MIT 
@@ -55,13 +55,14 @@
          *         
          */
         init: function() {
+            this.$el.addClass('timeline-me-container');
+
             if(this.settings.items && this.settings.items.length > 0) {
                 this.content = this.settings.items;
 
                 for(var i = 0; i < this.content.length; i++) {
                     this.$el.append(this._createItemElement(this.content[i]));
                 }
-                this._refreshItems();
             }
         },
 
@@ -111,39 +112,122 @@
          *  $('#element').jqueryPlugin('_pseudoPrivateMethod');  // Will not work
          */
         //
-        _createItemElement: function(itemOptions) {
-            switch(itemOptions.type) {
+        _createItemElement: function(item) {
+            var itemElm;
+            switch(item.type) {
                 case 'milestone':
-                    return this._buildMilestoneElement(itemOptions);
+                    itemElm = this._buildMilestoneElement(item);
                     break;
                 case 'smallItem':
-                    return this._buildSmallItemElement(itemOptions);
+                    itemElm = this._buildSmallItemElement(item);
                     break;
                 case 'bigItem':
-                    return this._buildBigItemElement(itemOptions);
+                    itemElm = this._buildBigItemElement(item);
                     break;
             }
+            item.element = itemElm;
+            item.element.on('timelineMe.heightChanged timelineMe.itemFlipped', function(event) { 
+                console.log(event); 
+            });
+
+            this._buildItemContent(item);
+            this._fillItem(item);
+
+            return itemElm;
         },
         //
         _buildMilestoneElement: function(item) {
-            var milestoneElm = $('<div>');
-            milestoneElm.addClass('timeline-item timeline-milestone');
-            item.element = milestoneElm;
+            var milestoneElm = $('<div class="timeline-me-item timeline-me-milestone">');
             return milestoneElm;
         },
         //
         _buildSmallItemElement: function(item) {
-            var smallItemElm = $('<div>');
-            smallItemElm.addClass('timeline-item timeline-smallitem');
-            item.element = smallItemElm;
+            var smallItemElm = $('<div class="timeline-me-item timeline-me-smallitem">');  
             return smallItemElm;
         },
         //
         _buildBigItemElement: function(item) {
-            var bigItemElm = $('<div>');
-            bigItemElm.addClass('timeline-item timeline-bigitem');
-            item.element = bigItemElm;
+            var bigItemElm = $('<div class="timeline-me-item timeline-me-bigitem">');
             return bigItemElm;
+        },
+        //
+        _buildItemContent: function(item) {
+            if(!item || !item.element)
+                return;
+
+            var labelElm = $('<div class="timeline-me-label">');
+            item.element.append(labelElm);
+            item.labelElement = labelElm;
+
+            if(item.type == 'smallItem' || item.type == 'bigItem') {
+                var contentContainer = $('<div class="timeline-me-content-container">');
+
+                var shortContentElm = $('<div class="timeline-me-shortcontent">');
+                contentContainer.append(shortContentElm);
+                item.shortContentElement = shortContentElm;
+
+                var fullContentElm = $('<div class="timeline-me-fullcontent">');
+                contentContainer.append(fullContentElm);
+                item.fullContentElement = fullContentElm;
+            
+                var showMoreElm = $('<div class="timeline-me-showmore">');
+                item.showMoreElement = showMoreElm;
+
+                var showLessElm = $('<div class="timeline-me-showless">');
+                item.showLessElement = showLessElm;
+
+                item.element.append(contentContainer);
+            }
+        },
+        //
+        _fillItem: function(item) {
+            if(item.label && item.labelElement)
+                item.labelElement.html(item.label);
+
+            if(item.shortContent && item.shortContentElement) {
+                item.shortContentElement.html(item.shortContent);
+                /*
+                // Two solutions to get element's height:
+                resolveElementHeight(item.shortContentElement).then(function(data) {
+                    console.log('resolved');
+                    console.log(data);
+                });
+                eventElementHeight(item.shortContentElement, {eventName: 'timelineMe.heightChanged'});
+                */
+
+                // Test height watcher:
+                heightWatcher(item.shortContentElement, function(data) {
+                    if(data && data.element) {
+                        var container = data.element.closest('.timeline-me-content-container');
+                        if(data.newVal)
+                            container.height(data.newVal);
+                    }
+                });
+            }
+
+            if(item.fullContent && item.fullContentElement) {
+                item.fullContentElement.html(item.fullContent);
+            }
+
+            if(item.showMore && item.showMoreElement) {
+                item.showMoreElement.html(item.showMore);
+                if(item.shortContentElement)
+                    item.shortContentElement.append(item.showMoreElement);
+                item.showMoreElement.on('click', function() {
+                    item.element.toggleClass('flip');
+                    item.element.trigger('timelineMe.itemFlipped');
+                });
+            }
+
+            if(item.showLess && item.showLessElement) {
+                item.showLessElement.html(item.showLess);
+                if(item.fullContentElement)
+                    item.fullContentElement.append(item.showLessElement);
+                item.showLessElement.on('click', function() {
+                    item.element.toggleClass('flip');
+                    item.element.trigger('timelineMe.itemFlipped');
+                });
+            }
         },
         //
         _refreshItems: function() {
@@ -151,7 +235,7 @@
                 if(!this.content[i].element || !this._isItemClassCorrespondingToType(this.content[i])) {
                     this._createItemElement(this.content[i])
                 }
-                this.content[i].element.html(this.content[i].shortContent);
+                this._fillItem(this.content[i]);
             }
         },
         //
@@ -181,7 +265,87 @@
      * @return {[type]}
      */
     // 
-    var myPrivateMethod = function() {};
+    var resolveElementHeight = function(element, args) {
+        if(!args) 
+            args = {};
+        var refreshDelay = args.refreshDelay ? args.refreshDelay : 500;
+        var ret = new $.Deferred();
+        var elmHeight;
+
+        if(element)
+            elmHeight = element.height();
+        if(elmHeight && elmHeight > 0) {
+            ret.resolve(elmHeight);
+        } else {
+            setTimeout(function () {
+                resolveElementHeight(element, args).then(function(heightData) {
+                    ret.resolve(heightData);
+                });
+            }, refreshDelay);
+        }
+        
+        return ret;
+    }
+    //
+    var eventElementHeight = function(element, args) {
+        if(!args) 
+            args = {};
+        var eventName = args.eventName ? args.eventName : 'onElementHeight';
+        var refreshDelay = args.refreshDelay ? args.refreshDelay : 500;
+        var elmHeight;
+
+        if(element)
+            elmHeight = element.height();
+        if(elmHeight && elmHeight > 0) {
+            var e = jQuery.Event(eventName, {elementHeight: elmHeight});
+            element.trigger(e);
+        } else {
+            setTimeout(function () {
+                eventElementHeight(element, args);
+            }, refreshDelay);
+        }
+    }
+    //
+    var resolveElementHeightChange = function(element, args) {
+        if(!args) 
+            args = {};
+        var refreshDelay = args.refreshDelay ? args.refreshDelay : 500;
+        var previousHeight = args.previousHeight;
+        var level = args.level ? args.level : 0;
+        var ret = new $.Deferred();
+        var elmHeight;
+
+        if(element)
+            elmHeight = element.outerHeight() ? element.outerHeight() : element.height();
+        if(elmHeight && (!previousHeight || previousHeight != elmHeight)) {
+            //console.log('resolved at level: ' + level);
+            ret.resolve(elmHeight, previousHeight, level);
+        } else {
+            args.previousHeight = elmHeight;
+            setTimeout(function () {
+                resolveElementHeightChange(element, {previousHeight: elmHeight, refreshDelay: refreshDelay, level: (level + 1)}).then(function(newHeightVal, previousHeightVal, levelVal) {
+                    //console.log('resolved promise ' + level + ' from level ' + levelVal);
+                    ret.resolve(newHeightVal, previousHeightVal, level);
+                });
+            }, refreshDelay);
+        }
+        
+        return ret;
+    }
+
+    var heightWatcher = function(element, callback) {
+        resolveElementHeightChange(element).then(function(newVal, oldVal) {
+            var heightEvent = jQuery.Event('timelineMe.itemHeightChanged', {elementHeight: newVal, previousHeight: oldVal});
+            element.trigger(heightEvent);
+        });
+        element.on('timelineMe.itemHeightChanged', function(e) {
+            callback({element: element, newVal: e.elementHeight, oldVal: e.previousHeight});
+            resolveElementHeightChange($(e.target), {previousHeight: e.elementHeight}).then(function(newVal, oldVal) {
+                var heightEvent = jQuery.Event('timelineMe.itemHeightChanged', {elementHeight: newVal, previousHeight: oldVal});
+                $(e.target).trigger(heightEvent);
+            });
+        });
+    }
     
     $.fn[pluginName] = function(options) {
         var args = arguments;
@@ -234,3 +398,4 @@
     };
  
 }(jQuery));
+
