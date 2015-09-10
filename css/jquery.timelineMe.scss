@@ -74,6 +74,7 @@ $timeline-color: #555555;
 		&:before {
 			content: '';
 			position: absolute;
+			box-sizing: content-box;
 		    height: 12px;
 		    width: 12px;
 		    background-color: $item-bg-color;

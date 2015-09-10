@@ -86,6 +86,7 @@
 .timeline-me-milestone .timeline-me-label:before {
   content: '';
   position: absolute;
+  box-sizing: content-box;
   height: 12px;
   width: 12px;
   background-color: #ffffff;

@@ -6,21 +6,29 @@
     <title>TimelineMe by mickaelr</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/jquery.timelineMe.css">
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/foundation/css/foundation.min.css">
+    <link rel="stylesheet" href="vendor/materialize/css/materialize.min.css">
   </head>
   
   <body style="background-color: #7DD7DD;">
-    <div id="timeline-container"></div>
+    <h1>jQuery TimelineMe plugin</h1>
+
+    <h2>Basic usage</h2>
+    <div id="timeline-container-basic"></div>
+    <h2>Use your own class</h2>
+    <h3>Bootstrap:</h3>
+    <div id="timeline-container-bootstrap"></div>
+    <h3>Foundation:</h3>
+    <div id="timeline-container-foundation"></div>
+    <h3>Materialize:</h3>
+    <div id="timeline-container-materialize"></div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="js/jquery.timelineMe.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
-        $('#timeline-container').timelineMe({
-          labelClass: 'labelclass',
-          shortClass: 'shortcontentclass',
-          fullContentClass: 'fullcontentclass',
-          showMoreClass: 'showmoreclass',
-          showLessClass: 'showlessclass',
+        $('#timeline-container-basic').timelineMe({
           items: [
             {
               type: 'milestone',
@@ -30,6 +38,84 @@
               showMore: undefined,
               showLess: undefined
             },
+            {
+              type: 'smallItem',
+              label: 'my label',
+              shortContent: 'short desc SI',
+              fullContent: 'big desc SI',
+              showMore: 'show more',
+              showLess: 'show less'
+            },
+            {
+              type: 'bigItem',
+              label: 'my label',
+              shortContent: 'short desc BI',
+              fullContent: 'big desc BI',
+              showMore: 'show more',
+              showLess: 'show less'
+            }
+          ]
+        });
+
+        $('#timeline-container-bootstrap').timelineMe({
+          labelClass: 'labelclass',
+          shortContentClass: 'alert alert-info',
+          fullContentClass: 'alert alert-info',
+          showMoreClass: 'showmoreclass',
+          showLessClass: 'showlessclass',
+          items: [
+            {
+              type: 'smallItem',
+              label: 'my label',
+              shortContent: 'short desc SI',
+              fullContent: 'big desc SI',
+              showMore: 'show more',
+              showLess: 'show less'
+            },
+            {
+              type: 'bigItem',
+              label: 'my label',
+              shortContent: 'short desc BI',
+              fullContent: 'big desc BI',
+              showMore: 'show more',
+              showLess: 'show less'
+            }
+          ]
+        });
+
+        $('#timeline-container-foundation').timelineMe({
+          labelClass: 'labelclass',
+          shortContentClass: 'panel',
+          fullContentClass: 'panel',
+          showMoreClass: 'showmoreclass',
+          showLessClass: 'showlessclass',
+          items: [
+            {
+              type: 'smallItem',
+              label: 'my label',
+              shortContent: 'short desc SI',
+              fullContent: 'big desc SI',
+              showMore: 'show more',
+              showLess: 'show less'
+            },
+            {
+              type: 'bigItem',
+              label: 'my label',
+              shortContent: 'short desc BI',
+              fullContent: 'big desc BI',
+              showMore: 'show more',
+              showLess: 'show less'
+            }
+          ]
+        });
+
+        $('#timeline-container-materialize').timelineMe({
+          labelClass: 'labelclass',
+          shortContentClass: 'card-panel',
+          fullContentClass: 'card-panel',
+          showMoreClass: 'showmoreclass',
+          showLessClass: 'showlessclass',
+          items: [
             {
               type: 'smallItem',
               label: 'my label',
