@@ -8,21 +8,19 @@
     <link rel="stylesheet" href="css/jquery.timelineMe.css">
   </head>
   
-  <body>
+  <body style="background-color: #7DD7DD;">
     <div id="timeline-container"></div>
-
-    <br><br><br><br><br><br><br><br><br>
-    <div onclick="addContent();">addContent</div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="js/jquery.timelineMe.js"></script>
     <script type="text/javascript">
-      function addContent() {
-        $('.timeline-me-shortcontent').first().append($('<div>TEST</div>'));
-      }
-
       $(document).ready(function() {
         $('#timeline-container').timelineMe({
+          labelClass: 'labelclass',
+          shortClass: 'shortcontentclass',
+          fullContentClass: 'fullcontentclass',
+          showMoreClass: 'showmoreclass',
+          showLessClass: 'showlessclass',
           items: [
             {
               type: 'milestone',
@@ -30,9 +28,7 @@
               shortContent: 'short desc MS',
               fullContent: 'big desc MS',
               showMore: undefined,
-              showLess: undefined,
-              maxWidth: undefined,
-              maxHeight: undefined
+              showLess: undefined
             },
             {
               type: 'smallItem',
@@ -40,9 +36,7 @@
               shortContent: 'short desc SI',
               fullContent: 'big desc SI',
               showMore: 'show more',
-              showLess: 'show less',
-              maxWidth: undefined,
-              maxHeight: undefined
+              showLess: 'show less'
             },
             {
               type: 'bigItem',
@@ -50,9 +44,7 @@
               shortContent: 'short desc BI',
               fullContent: 'big desc BI',
               showMore: 'show more',
-              showLess: 'show less',
-              maxWidth: undefined,
-              maxHeight: undefined
+              showLess: 'show less'
             }
           ]
         });

@@ -1,10 +1,5 @@
-$bg-color: #aaaaaa;
 $item-bg-color: #ffffff;
 $timeline-color: #555555;
-
-body {
-	background-color: $bg-color;
-}
 
 .timeline-me-container {
 	position: relative;
@@ -94,6 +89,8 @@ body {
 	.timeline-me-content-container { 
 		width: 40%;
 		margin-left: 10%;
+		padding-right: 8px;
+    	box-sizing: border-box;
 	}
 	.timeline-me-fullcontent,
 	.timeline-me-shortcontent {  
@@ -106,9 +103,9 @@ body {
 		    height: 0;
 		    width: 0;
 		    border: 7px solid transparent;
-		    border-right: 7px solid white;
+		    border-right: 7px solid $item-bg-color;
 		    border-color: transparent;
-		    border-left-color: white;
+		    border-left-color: $item-bg-color;
 		}
 	}
 }
@@ -125,6 +122,11 @@ body {
 }
 
 .timeline-me-label {}
+
+.timeline-me-content { 
+	position: relative; 
+	transform-style: preserve-3d;
+}
 
 .timeline-me-shortcontent,
 .timeline-me-fullcontent {

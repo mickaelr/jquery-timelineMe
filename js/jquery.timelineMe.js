@@ -161,13 +161,15 @@
 
             if(item.type == 'smallItem' || item.type == 'bigItem') {
                 var contentContainer = $('<div class="timeline-me-content-container">');
+                var contentElm = $('<div class="timeline-me-content"></div>');
+                contentContainer.append(contentElm);
 
                 var shortContentElm = $('<div class="timeline-me-shortcontent">');
-                contentContainer.append(shortContentElm);
+                contentElm.append(shortContentElm);
                 item.shortContentElement = shortContentElm;
 
                 var fullContentElm = $('<div class="timeline-me-fullcontent">');
-                contentContainer.append(fullContentElm);
+                contentElm.append(fullContentElm);
                 item.fullContentElement = fullContentElm;
             
                 var showMoreElm = $('<div class="timeline-me-showmore">');
@@ -181,8 +183,12 @@
         },
         //
         _fillItem: function(item) {
-            if(item.label && item.labelElement)
+            if(item.label && item.labelElement) {
                 item.labelElement.html(item.label);
+            }
+            if(this.settings.labelClass && item.labelElement) {
+                item.labelElement.addClass(this.settings.labelClass);
+            }
 
             if(item.shortContent && item.shortContentElement) {
                 item.shortContentElement.html(item.shortContent);
@@ -204,9 +210,15 @@
                     }
                 });
             }
+            if(this.settings.shortContentClass && item.shortContentElement) {
+                item.shortContentElement.addClass(this.settings.shortContentClass);
+            }
 
             if(item.fullContent && item.fullContentElement) {
                 item.fullContentElement.html(item.fullContent);
+            }
+            if(this.settings.fullContentClass && item.fullContentElement) {
+                item.fullContentElement.addClass(this.settings.fullContentClass);
             }
 
             if(item.showMore && item.showMoreElement) {
@@ -218,6 +230,9 @@
                     item.element.trigger('timelineMe.itemFlipped');
                 });
             }
+            if(this.settings.showMoreClass && item.showMoreElement) {
+                item.showMoreElement.addClass(this.settings.showMoreClass);
+            }
 
             if(item.showLess && item.showLessElement) {
                 item.showLessElement.html(item.showLess);
@@ -227,6 +242,9 @@
                     item.element.toggleClass('flip');
                     item.element.trigger('timelineMe.itemFlipped');
                 });
+            }
+            if(this.settings.showLessClass && item.showLessElement) {
+                item.showLessElement.addClass(this.settings.showLessClass);
             }
         },
         //
@@ -390,10 +408,6 @@
      */
     $.fn[pluginName].defaults = {
         orientation         : 'vertical',
-        smallItemWidth      : '200px',
-        bigItemWidth        : '600px',
-        smallItemTemplate   : undefined,
-        bigItemTemplate     : undefined,
         items               : []
     };
  
