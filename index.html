@@ -16,6 +16,8 @@
 
     <h2>Basic usage</h2>
     <div id="timeline-container-basic"></div>
+    <h2>Force position</h2>
+    <div id="timeline-container-force-position"></div>
     <h2>Use your own class</h2>
     <h3>Bootstrap:</h3>
     <div id="timeline-container-bootstrap"></div>
@@ -48,11 +50,50 @@
             },
             {
               type: 'bigItem',
-              label: 'my label',
+              label: '<span style="background-color: #7DD7DD;">my label</span>',
               shortContent: 'short desc BI',
               fullContent: 'big desc BI',
               showMore: 'show more',
               showLess: 'show less'
+            }
+          ]
+        });
+
+        $('#timeline-container-force-position').timelineMe({
+          items: [
+            {
+              type: 'smallItem',
+              label: 'my label',
+              shortContent: 'short desc SI',
+              fullContent: 'big desc SI',
+              showMore: 'show more',
+              showLess: 'show less'
+            },
+            {
+              type: 'smallItem',
+              label: 'my label',
+              shortContent: 'short desc SI',
+              fullContent: 'big desc SI',
+              showMore: 'show more',
+              showLess: 'show less'
+            },
+            {
+              type: 'smallItem',
+              label: 'my label',
+              shortContent: 'short desc SI',
+              fullContent: 'big desc SI',
+              showMore: 'show more',
+              showLess: 'show less',
+              forcePosition: 'right'
+            },
+            {
+              type: 'smallItem',
+              label: 'my label',
+              shortContent: 'short desc SI',
+              fullContent: 'big desc SI',
+              showMore: 'show more',
+              showLess: 'show less',
+              forcePosition: 'left'
             }
           ]
         });

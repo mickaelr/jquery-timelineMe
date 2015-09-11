@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------
  *JAVASCRIPT "timelineMe.js"
- *Version:    0.0.2 - 2015
+ *Version:    0.0.3 - 2015
  *author:     Mickaël Roy
  *website:    http://www.mickaelroy.com
  *Licensed MIT 
@@ -60,6 +60,8 @@
             if(this.settings.items && this.settings.items.length > 0) {
                 this.content = this.settings.items;
 
+                this._fillItemsPosition(this.content);
+
                 for(var i = 0; i < this.content.length; i++) {
                     this.$el.append(this._createItemElement(this.content[i]));
                 }
@@ -95,12 +97,24 @@
          * getItem method
          *
          * @example
-         * $('#element').pluginName('getItem');
+         * $('#element').pluginName('getItem', index);
          * 
          * @return {item} corresponding to the specified index
          */
         getItem: function(index) {
             return this.content[index];
+        },
+
+        /**
+         * getItemIndex method
+         *
+         * @example
+         * $('#element').pluginName('getItemIndex', item);
+         * 
+         * @return {index} of the corresponding item
+         */
+        getItem: function(item) {
+            return this.settings.items.indexOf(item);
         },
 
         /**
@@ -111,7 +125,116 @@
          *  @example
          *  $('#element').jqueryPlugin('_pseudoPrivateMethod');  // Will not work
          */
-        //
+        // Method that create ids for items that does not have one
+        _fillItemsId: function(items) {
+            if(!items)
+                return;
+
+            var existingIds = [];
+            var lastId;
+            for(var i = 0; i < items.length; i++) {
+                if(items[i].id) {
+                    existingIds.push(items[i].id);
+                    if(!lastId)
+                        lastId = items[i].id;
+                    else
+                        lastId = Math.max(lastId, items[i].id);
+                }
+            }
+            for(var j = 0; j < items.length; j++) {
+                if(!items[j].id) {
+                    lastId++;
+                    items[j].id = lastId;
+                } 
+            }
+            return items;
+        },
+
+        // Method that fill 'position' field, depending on item's forcePosition option, on item's type and on position of the previous item
+        _fillItemsPosition: function(items) {
+            if(!items)
+                return;
+
+            var positions;
+            if(this.settings.orientation == 'horizontal')
+                positions = ['top', 'bottom'];
+             else
+                positions = ['left', 'right'];
+
+            for(var i = 0; i < this.content.length; i++) {
+                if(this.content[i].forcePosition && positions.indexOf(this.content[i].forcePosition) >= 0) {
+                        this.content[i].position = this.content[i].forcePosition;
+                } else if(!this.content[i].position) {
+                    switch(this.content[i].type) {
+                        case 'milestone':
+                            if(this.settings.orientation == 'horizontal')
+                                this.content[i].position = 'top';
+                            else
+                                this.content[i].position = 'right';
+                            break;
+                        case 'smallItem':
+                            if(i == 0)
+                                this.content[i].position = this.settings.orientation == 'horizontal' ? 'top' : 'left';
+                            else if(this.settings.orientation == 'horizontal' && this.content[i - 1].position == 'top')
+                                this.content[i].position = 'bottom';
+                            else if(this.settings.orientation == 'horizontal' && this.content[i - 1].position == 'bottom')
+                                this.content[i].position = 'top';
+                            else if(this.settings.orientation != 'horizontal' && this.content[i - 1].position == 'left')
+                                this.content[i].position = 'right';
+                            else if(this.settings.orientation != 'horizontal' && this.content[i - 1].position == 'right')
+                                this.content[i].position = 'left';
+                            else
+                                this.content[i].position = this.settings.orientation == 'horizontal' ? 'top' : 'left';
+                            break;
+                        case 'bigItem':
+                            break;
+                    }
+                }
+            }
+
+            return items;
+        },
+
+        // Method that refresh item's class depending on its 'position' property
+        _refreshItemPosition: function(item) {
+            if(!item || (item && !item.element) || (item && !item.position))
+                return;
+
+            switch(item.position) {
+                case 'left':
+                    item.element
+                    .removeClass('timeline-me-top')
+                    .removeClass('timeline-me-right')
+                    .removeClass('timeline-me-bottom')
+                    .addClass('timeline-me-left');
+                    break;
+                case 'top':
+                    item.element
+                    .removeClass('timeline-me-left')
+                    .removeClass('timeline-me-right')
+                    .removeClass('timeline-me-bottom')
+                    .addClass('timeline-me-top');
+                    break;
+                case 'right':
+                    item.element
+                    .removeClass('timeline-me-top')
+                    .removeClass('timeline-me-left')
+                    .removeClass('timeline-me-bottom')
+                    .addClass('timeline-me-right');
+                    break;
+                case 'bottom':
+                    item.element
+                    .removeClass('timeline-me-top')
+                    .removeClass('timeline-me-right')
+                    .removeClass('timeline-me-left')
+                    .addClass('timeline-me-bottom');
+                    break;
+            }
+
+            return item;
+        },
+
+        // Method that create the item's html structure and fill it
         _createItemElement: function(item) {
             var itemElm;
             switch(item.type) {
@@ -126,8 +249,10 @@
                     break;
             }
             item.element = itemElm;
-            item.element.on('timelineMe.heightChanged timelineMe.itemFlipped', function(event) { 
-                console.log(event); 
+            this._refreshItemPosition(item);
+
+            item.element.on('timelineMe.heightChanged timelineMe.smallItem.displayfull timelineMe.bigItem.flipped', function(event) { 
+                // Do some stuff with events
             });
 
             this._buildItemContent(item);
@@ -135,22 +260,26 @@
 
             return itemElm;
         },
-        //
+
+        // Method that build html element for corresponding item
         _buildMilestoneElement: function(item) {
             var milestoneElm = $('<div class="timeline-me-item timeline-me-milestone">');
             return milestoneElm;
         },
-        //
+
+        // Method that build html element for corresponding item
         _buildSmallItemElement: function(item) {
             var smallItemElm = $('<div class="timeline-me-item timeline-me-smallitem">');  
             return smallItemElm;
         },
-        //
+
+        // Method that build html element for corresponding item
         _buildBigItemElement: function(item) {
             var bigItemElm = $('<div class="timeline-me-item timeline-me-bigitem">');
             return bigItemElm;
         },
-        //
+
+        // Method that fills the item's element with some useful html structure
         _buildItemContent: function(item) {
             if(!item || !item.element)
                 return;
@@ -181,7 +310,8 @@
                 item.element.append(contentContainer);
             }
         },
-        //
+
+        // Method that fills the item's element with content passed through the options
         _fillItem: function(item) {
             if(item.label && item.labelElement) {
                 item.labelElement.html(item.label);
@@ -225,10 +355,17 @@
                 item.showMoreElement.html(item.showMore);
                 if(item.shortContentElement)
                     item.shortContentElement.append(item.showMoreElement);
-                item.showMoreElement.on('click', function() {
-                    item.element.toggleClass('flip');
-                    item.element.trigger('timelineMe.itemFlipped');
-                });
+                if(item.type == 'smallItem') {
+                    item.showMoreElement.on('click', function() {
+                        item.element.toggleClass('timeline-me-displayfull');
+                        item.element.trigger('timelineMe.smallItem.displayfull');
+                    });
+                } else if(item.type == 'bigItem') {
+                    item.showMoreElement.on('click', function() {
+                        item.element.toggleClass('flip');
+                        item.element.trigger('timelineMe.bigItem.flipped');
+                    });
+                }
             }
             if(this.settings.showMoreClass && item.showMoreElement) {
                 item.showMoreElement.addClass(this.settings.showMoreClass);
@@ -238,16 +375,24 @@
                 item.showLessElement.html(item.showLess);
                 if(item.fullContentElement)
                     item.fullContentElement.append(item.showLessElement);
-                item.showLessElement.on('click', function() {
-                    item.element.toggleClass('flip');
-                    item.element.trigger('timelineMe.itemFlipped');
-                });
+                if(item.type == 'smallItem') {
+                    item.showLessElement.on('click', function() {
+                        item.element.toggleClass('timeline-me-displayfull');
+                        item.element.trigger('timelineMe.smallItem.displayfull');
+                    });
+                } else if(item.type == 'bigItem') {
+                    item.showLessElement.on('click', function() {
+                        item.element.toggleClass('flip');
+                        item.element.trigger('timelineMe.bigItem.flipped');
+                    });
+                }
             }
             if(this.settings.showLessClass && item.showLessElement) {
                 item.showLessElement.addClass(this.settings.showLessClass);
             }
         },
-        //
+
+        // Method that will refresh items' elements (still in progress)
         _refreshItems: function() {
             for(var i = 0; i < this.content.length; i++) {
                 if(!this.content[i].element || !this._isItemClassCorrespondingToType(this.content[i])) {
@@ -256,7 +401,8 @@
                 this._fillItem(this.content[i]);
             }
         },
-        //
+
+        // Method that checks if an item's element has the class defined by his type
         _isItemClassCorrespondingToType: function(item) {
             if(!item || !item.type || !item.element)
                 return false;
@@ -282,7 +428,7 @@
      * These are real private methods. A plugin instance has access to them
      * @return {[type]}
      */
-    // 
+    // Method that can return an element's height through a promise (so it'll be resolve only when the element will have a positive height)
     var resolveElementHeight = function(element, args) {
         if(!args) 
             args = {};
@@ -304,7 +450,8 @@
         
         return ret;
     }
-    //
+
+    // Method that can return an element's height through an event (event will be fired only when the element will have a positive height)
     var eventElementHeight = function(element, args) {
         if(!args) 
             args = {};
@@ -323,7 +470,8 @@
             }, refreshDelay);
         }
     }
-    //
+
+    // Method that can return an element's height when it's changing
     var resolveElementHeightChange = function(element, args) {
         if(!args) 
             args = {};
@@ -351,6 +499,7 @@
         return ret;
     }
 
+    // Method that can watch for an element's height change (uses the resolveElementHeightChange function)
     var heightWatcher = function(element, callback) {
         resolveElementHeightChange(element).then(function(newVal, oldVal) {
             var heightEvent = jQuery.Event('timelineMe.itemHeightChanged', {elementHeight: newVal, previousHeight: oldVal});
@@ -401,7 +550,7 @@
      * Names of the pluguin methods that can act as a getter method.
      * @type {Array}
      */
-    //$.fn[pluginName].getters = ['getDate'];
+    $.fn[pluginName].getters = ['getItem', 'getItemIndex'];
 
     /**
      * Default options
