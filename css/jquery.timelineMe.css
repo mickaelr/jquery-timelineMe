@@ -297,7 +297,7 @@
   /* Back pane, initially hidden pane */
 }
 
-.timeline-me-bigitem.flip .timeline-me-content-container {
+.timeline-me-bigitem.timeline-me-flipped .timeline-me-content-container {
   transform: rotateY(180deg);
 }
 

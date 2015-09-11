@@ -313,7 +313,7 @@ $timeline-color: #555555;
 	transform-style: preserve-3d;
 
 	/* flip the pane when hovered */
-	&.flip .timeline-me-content-container { transform: rotateY(180deg); }
+	&.timeline-me-flipped .timeline-me-content-container { transform: rotateY(180deg); }
 
 	/* Configure flip speed */
 	.timeline-me-content-container {

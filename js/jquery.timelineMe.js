@@ -251,8 +251,19 @@
             item.element = itemElm;
             this._refreshItemPosition(item);
 
-            item.element.on('timelineMe.heightChanged timelineMe.smallItem.displayfull timelineMe.bigItem.flipped', function(event) { 
-                // Do some stuff with events
+            item.element.on('timelineMe.itemHeightChanged', function(event) { 
+                // Do some stuff
+            });
+            item.element.on('timelineMe.smallItem.displayfull', function(event) { 
+                // Do some stuff
+            });
+            item.element.on('timelineMe.bigItem.flipped', function(event) { 
+                var container = item.element.find('.timeline-me-content-container');
+                if(item.element.hasClass('timeline-me-flipped')) {
+                    container.height(item.fullContentElement.outerHeight());
+                } else {
+                    container.height(item.shortContentElement.outerHeight());
+                }
             });
 
             this._buildItemContent(item);
@@ -331,14 +342,23 @@
                 eventElementHeight(item.shortContentElement, {eventName: 'timelineMe.heightChanged'});
                 */
 
-                // Test height watcher:
-                heightWatcher(item.shortContentElement, function(data) {
-                    if(data && data.element) {
-                        var container = data.element.closest('.timeline-me-content-container');
-                        if(data.newVal)
-                            container.height(data.newVal);
-                    }
-                });
+                if(item.type == 'bigItem') {
+                    // Use height watcher:
+                    heightWatcher(item.shortContentElement, function(data) {
+                        if(data && data.element) {
+                            var container = data.element.closest('.timeline-me-content-container');
+                            if(data.newVal && !data.element.hasClass('timeline-me-displayfull'))
+                                container.height(data.newVal);
+                        }
+                    });
+                    heightWatcher(item.fullContentElement, function(data) {
+                        if(data && data.element) {
+                            var container = data.element.closest('.timeline-me-content-container');
+                            if(data.newVal && data.element.hasClass('timeline-me-displayfull'))
+                                container.height(data.newVal);
+                        }
+                    });
+                }
             }
             if(this.settings.shortContentClass && item.shortContentElement) {
                 item.shortContentElement.addClass(this.settings.shortContentClass);
@@ -362,7 +382,7 @@
                     });
                 } else if(item.type == 'bigItem') {
                     item.showMoreElement.on('click', function() {
-                        item.element.toggleClass('flip');
+                        item.element.toggleClass('timeline-me-flipped');
                         item.element.trigger('timelineMe.bigItem.flipped');
                     });
                 }
@@ -382,7 +402,7 @@
                     });
                 } else if(item.type == 'bigItem') {
                     item.showLessElement.on('click', function() {
-                        item.element.toggleClass('flip');
+                        item.element.toggleClass('timeline-me-flipped');
                         item.element.trigger('timelineMe.bigItem.flipped');
                     });
                 }
