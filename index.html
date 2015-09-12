@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   
   <body style="background-color: #7DD7DD;">
@@ -44,7 +45,7 @@
               type: 'smallItem',
               label: 'my label',
               shortContent: 'short desc SI',
-              fullContent: 'big desc SI <br> with more lines <br> than the short one.',
+              fullContent: 'big desc SI <br> with more lines <br> than the short one. <br> <div style="text-align: center;"><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" /></div>',
               showMore: 'show more',
               showLess: 'show less'
             },
@@ -52,7 +53,7 @@
               type: 'bigItem',
               label: '<span style="background-color: #7DD7DD;">my label</span>',
               shortContent: 'short desc BI',
-              fullContent: 'big desc BI <br> with more lines <br> than the short one.',
+              fullContent: 'big desc BI <br> with more lines <br> than the short one. <br> <div style="text-align: center;"><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" /></div>',
               showMore: 'show more',
               showLess: 'show less'
             }
@@ -162,16 +163,16 @@
               label: 'my label',
               shortContent: 'short desc SI',
               fullContent: 'big desc SI',
-              showMore: 'show more',
-              showLess: 'show less'
+              showMore: '<a class="btn-floating waves-effect waves-light blue" style="position: absolute; right: 20px; bottom: -20px;"><i class="material-icons">add</i></a>',
+              showLess: '<a class="btn-floating waves-effect waves-light blue" style="position: absolute; right: 20px; bottom: -20px;"><i class="material-icons">remove</i></a>'
             },
             {
               type: 'bigItem',
               label: 'my label',
               shortContent: 'short desc BI',
               fullContent: 'big desc BI',
-              showMore: 'show more',
-              showLess: 'show less'
+              showMore: '<a class="btn-floating waves-effect waves-light blue" style="position: absolute; right: 20px; bottom: -20px;"><i class="material-icons">add</i></a>',
+              showLess: '<a class="btn-floating waves-effect waves-light blue" style="position: absolute; right: 20px; bottom: -20px;"><i class="material-icons">remove</i></a>'
             }
           ]
         });
