@@ -49,6 +49,10 @@ The aim of this plugin is to easily build a timeline display for your data.
     });
 ```
 
+## Demo
+
+See [demo project page](http://mickaelr.github.io/jquery-timelineMe/)
+
 ## License
 
 The plugin is under MIT License
