@@ -1,6 +1,9 @@
 /* ---------------- *\
    GLOBAL VARIABLES
 \* ---------------- */
+/* ------ *\
+   MIXINS
+\* ------ */
 /* -------------- *\
    MAIN CONTAINER
 \* -------------- */
@@ -28,6 +31,10 @@
 
 .timeline-me-content {
   position: relative;
+  -moz-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
 
@@ -268,7 +275,15 @@
 \* --------------- */
 /* entire container, keeps perspective */
 .timeline-me-bigitem {
+  -moz-perspective: 1500px;
+  -webkit-perspective: 1500px;
+  -ms-perspective: 1500px;
+  -o-perspective: 1500px;
   perspective: 1500px;
+  -moz-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
   transform-style: preserve-3d;
   /* flip the pane when hovered */
   /* Configure flip speed */
@@ -277,15 +292,35 @@
   /* Back pane, initially hidden pane */
 }
 .timeline-me-bigitem.timeline-me-flipped .timeline-me-content-container {
+  -moz-transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
 .timeline-me-bigitem .timeline-me-content-container {
+  -webkit-transition: 0.6s;
+  -moz-transition: 0.6s;
+  -ms-transition: 0.6s;
+  -o-transition: 0.6s;
   transition: 0.6s;
+  -moz-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
   transform-style: preserve-3d;
   position: relative;
 }
 .timeline-me-bigitem .timeline-me-shortcontent, .timeline-me-bigitem .timeline-me-fullcontent {
+  -moz-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
   backface-visibility: hidden;
+  -moz-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
   transform-style: preserve-3d;
   position: absolute;
   top: 0;
@@ -293,8 +328,16 @@
 }
 .timeline-me-bigitem .timeline-me-shortcontent {
   z-index: 2;
+  -moz-transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  -o-transform: rotateY(0deg);
   transform: rotateY(0deg);
 }
 .timeline-me-bigitem .timeline-me-fullcontent {
+  -moz-transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }

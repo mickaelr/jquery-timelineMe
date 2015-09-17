@@ -7,6 +7,52 @@ $timeline-color: #555555;
 
 
 
+/* ------ *\
+   MIXINS
+\* ------ */
+
+@mixin transform-style($style: flat) {
+	-moz-transform-style: $style;
+	-webkit-transform-style: $style;
+	-ms-transform-style: $style;
+	-o-transform-style: $style;
+	transform-style: $style;
+}
+
+@mixin perspective($value) {
+	-moz-perspective: $value;
+	-webkit-perspective: $value;
+	-ms-perspective: $value;
+	-o-perspective: $value;
+	perspective: $value;
+}
+
+@mixin rotateY($degrees) {
+	-moz-transform: rotateY($degrees);
+	-webkit-transform: rotateY($degrees);
+	-ms-transform: rotateY($degrees);
+	-o-transform: rotateY($degrees);
+	transform: rotateY($degrees);
+}
+
+@mixin backface-visibility($visibility: visible) {
+	-moz-backface-visibility: $visibility;
+	-webkit-backface-visibility: $visibility;
+	-ms-backface-visibility: $visibility;
+	-o-backface-visibility: $visibility;
+	backface-visibility: $visibility;
+}
+
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+
+
 /* -------------- *\
    MAIN CONTAINER
 \* -------------- */
@@ -41,7 +87,7 @@ $timeline-color: #555555;
 
 .timeline-me-content { 
 	position: relative; 
-	transform-style: preserve-3d;
+	@include transform-style(preserve-3d);
 }
 
 .timeline-me-shortcontent,
@@ -318,23 +364,25 @@ $timeline-color: #555555;
 
 /* entire container, keeps perspective */
 .timeline-me-bigitem {
-    perspective: 1500px;
-	transform-style: preserve-3d;
+    @include perspective(1500px);
+	@include transform-style(preserve-3d);
 
 	/* flip the pane when hovered */
-	&.timeline-me-flipped .timeline-me-content-container { transform: rotateY(180deg); }
+	&.timeline-me-flipped .timeline-me-content-container { 
+		@include rotateY(180deg);
+	}
 
 	/* Configure flip speed */
 	.timeline-me-content-container {
-		transition: 0.6s;
-		transform-style: preserve-3d;
+		@include transition(.6s);
+		@include transform-style(preserve-3d);
 		position: relative;
 	}
 
 	/* Hide back of pane during flip */
 	.timeline-me-shortcontent, .timeline-me-fullcontent {
-		backface-visibility: hidden;
-		transform-style: preserve-3d;
+		@include backface-visibility(hidden);
+		@include transform-style(preserve-3d);
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -343,9 +391,11 @@ $timeline-color: #555555;
 	/* Front pane, placed above back */
 	.timeline-me-shortcontent {
 		z-index: 2;
-		transform: rotateY(0deg);
+		@include rotateY(0deg);
 	}
 
 	/* Back pane, initially hidden pane */
-	.timeline-me-fullcontent { transform: rotateY(180deg); }
+	.timeline-me-fullcontent { 
+		@include rotateY(180deg);
+	}
 }
