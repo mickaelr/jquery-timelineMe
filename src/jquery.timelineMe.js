@@ -299,6 +299,9 @@
             item.element.append(labelElm);
             item.labelElement = labelElm;
 
+            var pictoElm = $('<div class="timeline-me-picto">');
+            item.pictoElement = pictoElm;
+
             if(item.type == 'smallItem' || item.type == 'bigItem') {
                 var contentContainer = $('<div class="timeline-me-content-container">');
                 var contentElm = $('<div class="timeline-me-content"></div>');
@@ -326,9 +329,13 @@
         _fillItem: function(item) {
             if(item.label && item.labelElement) {
                 item.labelElement.html(item.label);
+                item.labelElement.append(item.pictoElement);
             }
             if(this.settings.labelClass && item.labelElement) {
                 item.labelElement.addClass(this.settings.labelClass);
+            }
+            if(item.picto) {
+                item.pictoElement.html(item.picto);
             }
 
             if(item.shortContent && item.shortContentElement) {

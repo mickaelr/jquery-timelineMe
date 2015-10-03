@@ -5,6 +5,12 @@
 $item-bg-color: #ffffff;
 $timeline-color: #555555;
 
+$label-bg-color: $item-bg-color;
+$label-picto-size: 30px;
+$label-picto-border: 3px;
+$label-picto-border-color: $timeline-color;
+$label-picto-total-size: $label-picto-size + 2 * $label-picto-border;
+$label-picto-sepa: 3px;
 
 
 /* ------ *\
@@ -114,16 +120,17 @@ $timeline-color: #555555;
 	.timeline-me-label {
 		position: relative;
 
-		&:before {
-			content: '';
+		.timeline-me-picto {
 			position: absolute;
 			box-sizing: content-box;
-		    height: 12px;
-		    width: 12px;
-		    background-color: $item-bg-color;
+		    height: $label-picto-size;
+		    width: $label-picto-size;
+		    background-color: $label-bg-color;
 		    border-radius: 50%;
-		    border: 3px solid $timeline-color;
+		    border: $label-picto-border solid $timeline-color;
 		    z-index: 100;
+		    text-align: center; 
+		    overflow: hidden;
 		}
 	}
 
@@ -134,10 +141,15 @@ $timeline-color: #555555;
     	margin-left: 50%;
 
 		.timeline-me-label {
-			padding-left: 22px; 
-			margin-left: -9px;
+			height: $label-picto-total-size;
+			line-height: $label-picto-total-size;
+			padding-left: ($label-picto-total-size + $label-picto-sepa); 
+			margin-left: - ($label-picto-total-size / 2);
 
-			&:before { left: 0; }
+			.timeline-me-picto { 
+				top: 0;
+				left: 0; 
+			}
 		}
 	}
 
@@ -147,12 +159,12 @@ $timeline-color: #555555;
 		text-align: center;
 
 		.timeline-me-label { 
-			padding-bottom: 22px;
+			padding-bottom: ($label-picto-total-size + $label-picto-sepa);
 
-			&:before {
+			.timeline-me-picto {
 				bottom: 0px;
 				left: 50%;
-    			margin-left: -9px;
+    			margin-left: - ($label-picto-total-size / 2);
 			}
 		}
 	}
@@ -164,10 +176,15 @@ $timeline-color: #555555;
     	text-align: right;
 
 		.timeline-me-label {
-			padding-right: 22px;
-			margin-right: -9px;
+			height: $label-picto-total-size;
+			line-height: $label-picto-total-size;
+			padding-right: ($label-picto-total-size + $label-picto-sepa);
+			margin-right: - ($label-picto-total-size / 2);
 
-			&:before { right: 0px; }
+			.timeline-me-picto { 
+				top: 0;
+				right: 0px; 
+			}
 		}
 	}
 
@@ -177,12 +194,12 @@ $timeline-color: #555555;
 		text-align: center;
 
 		.timeline-me-label {
-			padding-top: 22px;
+			padding-top: ($label-picto-total-size + $label-picto-sepa);
 
-			&:before {
+			.timeline-me-picto {
 				top: 0px;
 				left: 50%;
-    			margin-left: -9px;
+    			margin-left: - ($label-picto-total-size / 2);
 			}
 		}
 	}
@@ -200,16 +217,17 @@ $timeline-color: #555555;
 	.timeline-me-label {
 		position: absolute;
 
-		&:before {
-			content: '';
+		.timeline-me-picto {
 			position: absolute;
 			box-sizing: content-box;
-		    height: 12px;
-		    width: 12px;
-		    background-color: $item-bg-color;
+		    height: $label-picto-size;
+		    width: $label-picto-size;
+		    background-color: $label-bg-color;
 		    border-radius: 50%;
-		    border: 3px solid $timeline-color;
+		    border: $label-picto-border solid $timeline-color;
 		    z-index: 100;
+		    text-align: center; 
+		    overflow: hidden;
 		}
 	}
 
@@ -217,18 +235,23 @@ $timeline-color: #555555;
 	&.timeline-me-left,
 	&:not(.timeline-me-top):not(.timeline-me-right):not(.timeline-me-bottom) {
 		.timeline-me-label {
+				height: $label-picto-total-size;
+				line-height: $label-picto-total-size;
 			    left: 50%;
-			    top: 3px;
-			    margin-left: -9px;
+			    top: 12px - ($label-picto-total-size / 2);
+			    margin-left: - ($label-picto-total-size / 2);
 			    text-align: left;
-			    padding-left: 22px;
+			    padding-left: ($label-picto-total-size + $label-picto-sepa);
 
-			&:before { left: 0px; }
+			.timeline-me-picto { 
+				top: 0;
+				left: 0px; 
+			}
 		}
 		.timeline-me-content-container { 
 			width: 40%;
 			margin-left: 10%;
-			padding-right: 16px;
+			padding-right: ($label-picto-total-size / 2) + 7px;
 		}
 		.timeline-me-fullcontent,
 		.timeline-me-shortcontent {  
@@ -250,18 +273,23 @@ $timeline-color: #555555;
 	/* Specific for 'right' position item */
 	&.timeline-me-right {
 		.timeline-me-label {
+			height: $label-picto-total-size;
+			line-height: $label-picto-total-size;
 			right: 50%;
-			top: 3px;
-			margin-right: -9px;
+			top: 12px - ($label-picto-total-size / 2);
+			margin-right: - ($label-picto-total-size / 2);
 		    text-align: right;
-		    padding-right: 22px;
+		    padding-right: ($label-picto-total-size + $label-picto-sepa);
 
-			&:before { right: 0px; }
+			.timeline-me-picto { 
+				top: 0;
+				right: 0px; 
+			}
 		}
 		.timeline-me-content-container { 
 			width: 40%;
 			margin-left: 50%;
-			padding-left: 16px;
+			padding-left: ($label-picto-total-size / 2) + 7px;
 		}
 		.timeline-me-fullcontent,
 		.timeline-me-shortcontent {  
@@ -320,21 +348,22 @@ $timeline-color: #555555;
 		position: relative;
 		margin-bottom: 10px;
 		text-align: center; 
-		padding-bottom: 22px;
+		padding-bottom: ($label-picto-total-size + $label-picto-sepa);
 
-		&:before {
-			content: '';
+		.timeline-me-picto {
 			position: absolute;
 			box-sizing: content-box;
-		    height: 12px;
-		    width: 12px;
-		    background-color: $item-bg-color;
+		    height: $label-picto-size;
+		    width: $label-picto-size;
+		    background-color: $label-bg-color;
 		    border-radius: 50%;
-		    border: 3px solid $timeline-color;
+		    border: $label-picto-border solid $timeline-color;
 		    z-index: 100;
 			bottom: 0px;
 			left: 50%;
-			margin-left: -9px;
+			margin-left: - ($label-picto-total-size / 2);
+			text-align: center; 
+			overflow: hidden;
 		}
 	}
 
