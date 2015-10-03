@@ -393,6 +393,36 @@ $('#timeline-get-item-button').on('click', function() {
           <div id="timeline-container-get-item"></div>
           <button id="timeline-get-item-button" class="btn">get item n°2</button>
         </div>
+
+        <h3>Label picto</h3>
+<pre><code class="language-markup">&lt;div id="timeline-container-label-picto" type="text">&lt;/div></code></pre>
+<pre><code class="language-javascript">$('#timeline-container-label-picto').timelineMe({
+          items: [
+            {
+              type: 'milestone',
+              label: 'my label 1',
+              picto: '&lt;i class="material-icons">event&lt;/i>' 
+            },
+            {
+              type: 'smallItem',
+              label: 'my label 2',
+              picto: '&lt;img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" />',
+              shortContent: 'short description 3'
+            },
+            {
+              type: 'bigItem',
+              label: 'my label 3',
+              picto: '&lt;strong>TEXT&lt;/strong>',
+              shortContent: 'short description 3'
+            }
+          ]
+        });</code></pre>
+        <div style="padding: 10px; border-radius: 3px; background-color: #8DD8DD">
+          <div id="timeline-container-label-picto"></div>
+        </div>
+        <p>
+          To change label's picto size/background/border easily, use the SCSS file and change "$label-picto-*" files (demo will come - and if you have a better idea to handle that, I'd be glad to ear from you!).
+        </p>  
       <!-- END -->
 
       <footer class="site-footer">
@@ -522,6 +552,28 @@ $('#timeline-get-item-button').on('click', function() {
           alert(
             'type: ' + item.type + '\n' + 'label: ' + item.label + '\n' + 'shortContent: ' + item.shortContent
           );
+        });
+
+        $('#timeline-container-label-picto').timelineMe({
+          items: [
+            {
+              type: 'milestone',
+              label: 'my label 1',
+              picto: '<i class="material-icons">event</i>' 
+            },
+            {
+              type: 'smallItem',
+              label: 'my label 2',
+              picto: '<img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" />',
+              shortContent: 'short description 3'
+            },
+            {
+              type: 'bigItem',
+              label: 'my label 3',
+              picto: '<strong>TEXT</strong>',
+              shortContent: 'short description 3'
+            }
+          ]
         });
 
       });

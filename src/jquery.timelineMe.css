@@ -68,26 +68,30 @@
 .timeline-me-milestone .timeline-me-label {
   position: relative;
 }
-.timeline-me-milestone .timeline-me-label:before {
-  content: '';
+.timeline-me-milestone .timeline-me-label .timeline-me-picto {
   position: absolute;
   box-sizing: content-box;
-  height: 12px;
-  width: 12px;
+  height: 30px;
+  width: 30px;
   background-color: #ffffff;
   border-radius: 50%;
   border: 3px solid #555555;
   z-index: 100;
+  text-align: center;
+  overflow: hidden;
 }
 .timeline-me-milestone.timeline-me-right, .timeline-me-milestone:not(.timeline-me-top):not(.timeline-me-left):not(.timeline-me-bottom) {
   width: 50%;
   margin-left: 50%;
 }
 .timeline-me-milestone.timeline-me-right .timeline-me-label, .timeline-me-milestone:not(.timeline-me-top):not(.timeline-me-left):not(.timeline-me-bottom) .timeline-me-label {
-  padding-left: 22px;
-  margin-left: -9px;
+  height: 36px;
+  line-height: 36px;
+  padding-left: 39px;
+  margin-left: -18px;
 }
-.timeline-me-milestone.timeline-me-right .timeline-me-label:before, .timeline-me-milestone:not(.timeline-me-top):not(.timeline-me-left):not(.timeline-me-bottom) .timeline-me-label:before {
+.timeline-me-milestone.timeline-me-right .timeline-me-label .timeline-me-picto, .timeline-me-milestone:not(.timeline-me-top):not(.timeline-me-left):not(.timeline-me-bottom) .timeline-me-label .timeline-me-picto {
+  top: 0;
   left: 0;
 }
 .timeline-me-milestone.timeline-me-top {
@@ -95,12 +99,12 @@
   text-align: center;
 }
 .timeline-me-milestone.timeline-me-top .timeline-me-label {
-  padding-bottom: 22px;
+  padding-bottom: 39px;
 }
-.timeline-me-milestone.timeline-me-top .timeline-me-label:before {
+.timeline-me-milestone.timeline-me-top .timeline-me-label .timeline-me-picto {
   bottom: 0px;
   left: 50%;
-  margin-left: -9px;
+  margin-left: -18px;
 }
 .timeline-me-milestone.timeline-me-left {
   width: 50%;
@@ -108,10 +112,13 @@
   text-align: right;
 }
 .timeline-me-milestone.timeline-me-left .timeline-me-label {
-  padding-right: 22px;
-  margin-right: -9px;
+  height: 36px;
+  line-height: 36px;
+  padding-right: 39px;
+  margin-right: -18px;
 }
-.timeline-me-milestone.timeline-me-left .timeline-me-label:before {
+.timeline-me-milestone.timeline-me-left .timeline-me-label .timeline-me-picto {
+  top: 0;
   right: 0px;
 }
 .timeline-me-milestone.timeline-me-bottom {
@@ -119,12 +126,12 @@
   text-align: center;
 }
 .timeline-me-milestone.timeline-me-bottom .timeline-me-label {
-  padding-top: 22px;
+  padding-top: 39px;
 }
-.timeline-me-milestone.timeline-me-bottom .timeline-me-label:before {
+.timeline-me-milestone.timeline-me-bottom .timeline-me-label .timeline-me-picto {
   top: 0px;
   left: 50%;
-  margin-left: -9px;
+  margin-left: -18px;
 }
 .timeline-me-milestone .timeline-me-shortcontent {
   display: none;
@@ -142,31 +149,35 @@
 .timeline-me-smallitem .timeline-me-label {
   position: absolute;
 }
-.timeline-me-smallitem .timeline-me-label:before {
-  content: '';
+.timeline-me-smallitem .timeline-me-label .timeline-me-picto {
   position: absolute;
   box-sizing: content-box;
-  height: 12px;
-  width: 12px;
+  height: 30px;
+  width: 30px;
   background-color: #ffffff;
   border-radius: 50%;
   border: 3px solid #555555;
   z-index: 100;
+  text-align: center;
+  overflow: hidden;
 }
 .timeline-me-smallitem.timeline-me-left .timeline-me-label, .timeline-me-smallitem:not(.timeline-me-top):not(.timeline-me-right):not(.timeline-me-bottom) .timeline-me-label {
+  height: 36px;
+  line-height: 36px;
   left: 50%;
-  top: 3px;
-  margin-left: -9px;
+  top: -6px;
+  margin-left: -18px;
   text-align: left;
-  padding-left: 22px;
+  padding-left: 39px;
 }
-.timeline-me-smallitem.timeline-me-left .timeline-me-label:before, .timeline-me-smallitem:not(.timeline-me-top):not(.timeline-me-right):not(.timeline-me-bottom) .timeline-me-label:before {
+.timeline-me-smallitem.timeline-me-left .timeline-me-label .timeline-me-picto, .timeline-me-smallitem:not(.timeline-me-top):not(.timeline-me-right):not(.timeline-me-bottom) .timeline-me-label .timeline-me-picto {
+  top: 0;
   left: 0px;
 }
 .timeline-me-smallitem.timeline-me-left .timeline-me-content-container, .timeline-me-smallitem:not(.timeline-me-top):not(.timeline-me-right):not(.timeline-me-bottom) .timeline-me-content-container {
   width: 40%;
   margin-left: 10%;
-  padding-right: 16px;
+  padding-right: 25px;
 }
 .timeline-me-smallitem.timeline-me-left .timeline-me-fullcontent:before,
 .timeline-me-smallitem.timeline-me-left .timeline-me-shortcontent:before, .timeline-me-smallitem:not(.timeline-me-top):not(.timeline-me-right):not(.timeline-me-bottom) .timeline-me-fullcontent:before,
@@ -178,19 +189,22 @@
   right: -5px;
 }
 .timeline-me-smallitem.timeline-me-right .timeline-me-label {
+  height: 36px;
+  line-height: 36px;
   right: 50%;
-  top: 3px;
-  margin-right: -9px;
+  top: -6px;
+  margin-right: -18px;
   text-align: right;
-  padding-right: 22px;
+  padding-right: 39px;
 }
-.timeline-me-smallitem.timeline-me-right .timeline-me-label:before {
+.timeline-me-smallitem.timeline-me-right .timeline-me-label .timeline-me-picto {
+  top: 0;
   right: 0px;
 }
 .timeline-me-smallitem.timeline-me-right .timeline-me-content-container {
   width: 40%;
   margin-left: 50%;
-  padding-left: 16px;
+  padding-left: 25px;
 }
 .timeline-me-smallitem.timeline-me-right .timeline-me-fullcontent:before,
 .timeline-me-smallitem.timeline-me-right .timeline-me-shortcontent:before {
@@ -239,21 +253,22 @@
   position: relative;
   margin-bottom: 10px;
   text-align: center;
-  padding-bottom: 22px;
+  padding-bottom: 39px;
 }
-.timeline-me-bigitem .timeline-me-label:before {
-  content: '';
+.timeline-me-bigitem .timeline-me-label .timeline-me-picto {
   position: absolute;
   box-sizing: content-box;
-  height: 12px;
-  width: 12px;
+  height: 30px;
+  width: 30px;
   background-color: #ffffff;
   border-radius: 50%;
   border: 3px solid #555555;
   z-index: 100;
   bottom: 0px;
   left: 50%;
-  margin-left: -9px;
+  margin-left: -18px;
+  text-align: center;
+  overflow: hidden;
 }
 .timeline-me-bigitem .timeline-me-content-container {
   width: 80%;
