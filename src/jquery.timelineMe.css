@@ -184,6 +184,11 @@
 .timeline-me-smallitem:not(.timeline-me-top):not(.timeline-me-right):not(.timeline-me-bottom) .timeline-me-shortcontent:before {
   background-color: inherit;
   transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
   height: 10px;
   width: 10px;
   right: -5px;
@@ -209,6 +214,10 @@
 .timeline-me-smallitem.timeline-me-right .timeline-me-fullcontent:before,
 .timeline-me-smallitem.timeline-me-right .timeline-me-shortcontent:before {
   background-color: inherit;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
   transform: rotate(45deg);
   height: 10px;
   width: 10px;
