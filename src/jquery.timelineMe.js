@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------
  *JAVASCRIPT "timelineMe.js"
- *Version:    0.1.2 - 2015
+ *Version:    0.1.3 - 2015
  *author:     Mickaël Roy
  *website:    http://www.mickaelroy.com
  *Licensed MIT 
@@ -508,11 +508,9 @@
         var ret = new $.Deferred();
         var elmHeight;
 
-        if(element) {
+        if(element)
             elmHeight = element[0].getBoundingClientRect().height;
-            if(!elmHeight || (elmHeight && elmHeight <= 0))
-                elmHeight = element.outerHeight() ? element.outerHeight() : element.height();
-        }
+
         if(elmHeight && (!previousHeight || previousHeight != elmHeight)) {
             ret.resolve(elmHeight, previousHeight, level);
         } else {
