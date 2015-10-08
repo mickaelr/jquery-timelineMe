@@ -508,16 +508,17 @@
         var ret = new $.Deferred();
         var elmHeight;
 
-        if(element)
-            elmHeight = element.outerHeight() ? element.outerHeight() : element.height();
+        if(element) {
+            elmHeight = element[0].getBoundingClientRect().height;
+            if(!elmHeight || (elmHeight && elmHeight <= 0))
+                elmHeight = element.outerHeight() ? element.outerHeight() : element.height();
+        }
         if(elmHeight && (!previousHeight || previousHeight != elmHeight)) {
-            //console.log('resolved at level: ' + level);
             ret.resolve(elmHeight, previousHeight, level);
         } else {
             args.previousHeight = elmHeight;
             setTimeout(function () {
                 resolveElementHeightChange(element, {previousHeight: elmHeight, refreshDelay: refreshDelay, level: (level + 1)}).then(function(newHeightVal, previousHeightVal, levelVal) {
-                    //console.log('resolved promise ' + level + ' from level ' + levelVal);
                     ret.resolve(newHeightVal, previousHeightVal, level);
                 });
             }, refreshDelay);
