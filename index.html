@@ -374,7 +374,7 @@
     {
       type: 'smallItem',
       label: 'my label 2',
-      shortContent: 'short description 3'
+      shortContent: 'short description 2'
     },
     {
       type: 'bigItem',
@@ -407,7 +407,7 @@ $('#timeline-get-item-button').on('click', function() {
               type: 'smallItem',
               label: 'my label 2',
               picto: '&lt;img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" />',
-              shortContent: 'short description 3'
+              shortContent: 'short description 2'
             },
             {
               type: 'bigItem',
@@ -423,6 +423,32 @@ $('#timeline-get-item-button').on('click', function() {
         <p>
           To change label's picto size/background/border easily, use the SCSS file and change "$label-picto-*" files (demo will come - and if you have a better idea to handle that, I'd be glad to ear from you!).
         </p>  
+
+        <h3>Horizontal mode</h3>
+<pre><code class="language-markup">&lt;div id="timeline-container-horizontal" type="text">&lt;/div></code></pre>
+<pre><code class="language-javascript">$('#timeline-container-horizontal').timelineMe({
+  orientation: 'horizontal',
+  items: [
+    {
+      type: 'milestone',
+      label: 'my label 1'
+    },
+    {
+      type: 'smallItem',
+      label: 'my label 2',
+      shortContent: 'short description 2'
+    },
+    {
+      type: 'bigItem',
+      label: 'my label 3',
+      shortContent: 'short description 3'
+    }
+  ]
+});</code></pre>
+        <div style="padding: 10px; border-radius: 3px; background-color: #8DD8DD">
+          <div id="timeline-container-horizontal"></div>
+        </div>
+        <p>WORK IN PROGRESS</p>
       <!-- END -->
 
       <footer class="site-footer">
@@ -513,7 +539,7 @@ $('#timeline-get-item-button').on('click', function() {
             {
               type: 'smallItem',
               label: 'my label 1',
-              shortContent: 'short description 2',
+              shortContent: 'short description 1',
               fullContent: 'big description 1',
               showMore: '<a class="custom-show-btn"><i class="material-icons">add</i></a>',
               showLess: '<a class="custom-show-btn"><i class="material-icons">remove</i></a>'
@@ -538,7 +564,7 @@ $('#timeline-get-item-button').on('click', function() {
             {
               type: 'smallItem',
               label: 'my label 2',
-              shortContent: 'short description 3'
+              shortContent: 'short description 2'
             },
             {
               type: 'bigItem',
@@ -565,12 +591,33 @@ $('#timeline-get-item-button').on('click', function() {
               type: 'smallItem',
               label: 'my label 2',
               picto: '<img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" />',
-              shortContent: 'short description 3'
+              shortContent: 'short description 2'
             },
             {
               type: 'bigItem',
               label: 'my label 3',
               picto: '<strong>TEXT</strong>',
+              shortContent: 'short description 3'
+            }
+          ]
+        });
+
+        $('#timeline-container-horizontal').timelineMe({
+          orientation: 'horizontal',
+          //fixDimension: 'height',
+          items: [
+            {
+              type: 'milestone',
+              label: 'my label 1'
+            },
+            {
+              type: 'smallItem',
+              label: 'my label 2',
+              shortContent: 'short description 2'
+            },
+            {
+              type: 'bigItem',
+              label: 'my label 3',
               shortContent: 'short description 3'
             }
           ]

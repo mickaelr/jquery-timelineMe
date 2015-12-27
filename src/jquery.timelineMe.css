@@ -7,23 +7,42 @@
 /* -------------- *\
    MAIN CONTAINER
 \* -------------- */
-.timeline-me-container {
+.timeline-me-track {
   position: relative;
 }
-.timeline-me-container:before {
+
+.timeline-me-track:before {
   content: '';
   position: absolute;
+  background: #555555;
+}
+
+.timeline-me-vertical .timeline-me-track:before {
   top: 0;
   left: 50%;
-  margin-left: -2px;
   height: 100%;
   width: 4px;
-  background: #555555;
+  margin-left: -2px;
+}
+
+.timeline-me-horizontal .timeline-me-track:before {
+  top: 50%;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  margin-top: -2px;
 }
 
 /* -------------------- *\
    GENERIC ITEM'S STYLE
 \* -------------------- */
+.timeline-me-horizontal {
+  overflow-x: scroll;
+}
+.timeline-me-horizontal .timeline-me-item {
+  display: inline-block;
+}
+
 .timeline-me-item {
   position: relative;
   margin: 20px 0px;
@@ -54,6 +73,20 @@
 
 .timeline-me-showless {
   display: none;
+}
+
+.timeline-me-fix-height .timeline-me-label {
+  height: 150px;
+}
+.timeline-me-fix-height .timeline-me-content {
+  height: 300px;
+}
+
+.timeline-me-fix-width .timeline-me-label {
+  width: 200px;
+}
+.timeline-me-fix-width .timeline-me-content {
+  width: 400px;
 }
 
 /* ----------------- *\
