@@ -42,6 +42,21 @@
 .timeline-me-horizontal .timeline-me-item {
   display: inline-block;
 }
+.timeline-me-horizontal .timeline-me-fix-height .timeline-me-label {
+  height: 150px;
+}
+.timeline-me-horizontal .timeline-me-fix-height .timeline-me-content {
+  height: 300px;
+}
+.timeline-me-horizontal .timeline-me-fix-width .timeline-me-label {
+  width: 200px;
+}
+.timeline-me-horizontal .timeline-me-fix-width .timeline-me-content {
+  width: 400px;
+}
+.timeline-me-horizontal .timeline-me-label {
+  bottom: -16px;
+}
 
 .timeline-me-item {
   position: relative;
@@ -73,20 +88,6 @@
 
 .timeline-me-showless {
   display: none;
-}
-
-.timeline-me-fix-height .timeline-me-label {
-  height: 150px;
-}
-.timeline-me-fix-height .timeline-me-content {
-  height: 300px;
-}
-
-.timeline-me-fix-width .timeline-me-label {
-  width: 200px;
-}
-.timeline-me-fix-width .timeline-me-content {
-  width: 400px;
 }
 
 /* ----------------- *\

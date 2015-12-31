@@ -315,7 +315,7 @@
             var labelElm = $('<div class="timeline-me-label">');
             item.element.append(labelElm);
             item.labelElement = labelElm;
-            if(this.settings.labelDimensionValue && pixelsRegex.test(this.settings.labelDimensionValue)) {
+            if(this.settings.orientation == 'horizontal' && this.settings.labelDimensionValue && pixelsRegex.test(this.settings.labelDimensionValue)) {
                 if(this.settings.fixDimension == 'height')
                     labelElm.css('height', this.settings.labelDimensionValue);
                 else
@@ -329,7 +329,7 @@
                 var contentContainer = $('<div class="timeline-me-content-container">');
                 var contentElm = $('<div class="timeline-me-content"></div>');
                 contentContainer.append(contentElm);
-                if(this.settings.contentDimensionValue && pixelsRegex.test(this.settings.contentDimensionValue)) {
+                if(this.settings.orientation == 'horizontal' && this.settings.contentDimensionValue && pixelsRegex.test(this.settings.contentDimensionValue)) {
                     if(this.settings.fixDimension == 'height')
                         contentElm.css('height', this.settings.contentDimensionValue);
                     else

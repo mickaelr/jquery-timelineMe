@@ -12,6 +12,8 @@ $label-picto-border-color: $timeline-color;
 $label-picto-total-size: $label-picto-size + 2 * $label-picto-border;
 $label-picto-sepa: 3px;
 
+$timeline-thickness: 4px;
+
 
 /* ------ *\
    MIXINS
@@ -85,16 +87,16 @@ $label-picto-sepa: 3px;
 	top: 0;
 	left: 50%;
 	height: 100%;
-	width: 4px;
-	margin-left: -2px;
+	width: $timeline-thickness;
+	margin-left: - $timeline-thickness / 2;
 }
 
 .timeline-me-horizontal .timeline-me-track:before {
 	top: 50%;
 	left: 0;
-	height: 4px;
+	height: $timeline-thickness;
 	width: 100%;
-	margin-top: -2px;
+	margin-top: - $timeline-thickness / 2;
 }
 
 
@@ -107,6 +109,18 @@ $label-picto-sepa: 3px;
 	overflow-x: scroll;
 
 	.timeline-me-item { display: inline-block; }
+
+	.timeline-me-fix-height {
+		.timeline-me-label { height: 150px; }
+		.timeline-me-content { height: 300px; }
+	}
+
+	.timeline-me-fix-width {
+		.timeline-me-label { width: 200px; }
+		.timeline-me-content { width: 400px; }
+	}
+
+	.timeline-me-label { bottom: - ($label-picto-total-size - $timeline-thickness) / 2; }
 }
 
 .timeline-me-item {
@@ -134,16 +148,6 @@ $label-picto-sepa: 3px;
 .timeline-me-showmore { display: block; }
 
 .timeline-me-showless { display: none; }
-
-.timeline-me-fix-height {
-	.timeline-me-label { height: 150px; }
-	.timeline-me-content { height: 300px; }
-}
-
-.timeline-me-fix-width {
-	.timeline-me-label { width: 200px; }
-	.timeline-me-content { width: 400px; }
-}
 
 
 
