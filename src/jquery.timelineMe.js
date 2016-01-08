@@ -79,6 +79,9 @@
                     track.append(this._createItemElement(this.content[i]));
                     if(this.settings.orientation == 'horizontal')
                         resolveContainerWidth(track);
+                        //TODO: Following line has to be done through a specific method
+                        //that would calculate an optimized height for horizontal mode
+                        track.height('300px');
                 }
             }
         },
@@ -311,9 +314,12 @@
                 return;
 
             var pixelsRegex = /[0-9]+px$/;
+            // Following wrapper are only used in horizontal mode, in order to correctly display bigItems (with table display)
+            var itemWrapper = $('<div class="timeline-me-item-wrapper">');
+            var labelWrapper = $('<div class="timeline-me-label-wrapper">');
+            var contentWrapper = $('<div class="timeline-me-content-wrapper">');
 
             var labelElm = $('<div class="timeline-me-label">');
-            item.element.append(labelElm);
             item.labelElement = labelElm;
             if(this.settings.orientation == 'horizontal' && this.settings.labelDimensionValue && pixelsRegex.test(this.settings.labelDimensionValue)) {
                 if(this.settings.fixDimension == 'height')
@@ -321,9 +327,11 @@
                 else
                     labelElm.css('width', this.settings.labelDimensionValue);
             }
-
             var pictoElm = $('<div class="timeline-me-picto">');
             item.pictoElement = pictoElm;
+
+            labelWrapper.append(labelElm);
+            itemWrapper.append(labelWrapper);
 
             if(item.type == 'smallItem' || item.type == 'bigItem') {
                 var contentContainer = $('<div class="timeline-me-content-container">');
@@ -350,8 +358,11 @@
                 var showLessElm = $('<div class="timeline-me-showless">');
                 item.showLessElement = showLessElm;
 
-                item.element.append(contentContainer);
+                contentWrapper.append(contentContainer);
+                itemWrapper.append(contentWrapper);
             }
+
+            item.element.append(itemWrapper);
         },
 
         // Method that fills the item's element with content passed through the options

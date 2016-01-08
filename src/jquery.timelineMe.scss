@@ -75,28 +75,36 @@ $timeline-thickness: 4px;
 
 .timeline-me-container {}
 	
-.timeline-me-track { position: relative; }
+.timeline-me-track { 
+	position: relative;
 
-.timeline-me-track:before {
-    content: '';
-    position: absolute;
-    background: $timeline-color;
+	&:before {
+		content: '';
+	    position: absolute;
+	    background: $timeline-color;
+	}
 }
 
-.timeline-me-vertical .timeline-me-track:before {
-	top: 0;
-	left: 50%;
-	height: 100%;
-	width: $timeline-thickness;
-	margin-left: - $timeline-thickness / 2;
+.timeline-me-vertical {
+	.timeline-me-track:before {
+		top: 0;
+		left: 50%;
+		height: 100%;
+		width: $timeline-thickness;
+		margin-left: - $timeline-thickness / 2;
+	}
 }
 
-.timeline-me-horizontal .timeline-me-track:before {
-	top: 50%;
-	left: 0;
-	height: $timeline-thickness;
-	width: 100%;
-	margin-top: - $timeline-thickness / 2;
+.timeline-me-horizontal {
+	.timeline-me-track { display: table; }
+
+	.timeline-me-track:before {
+		top: 50%;
+		left: 0;
+		height: $timeline-thickness;
+		width: 100%;
+		margin-top: - $timeline-thickness / 2;
+	}
 }
 
 
@@ -108,7 +116,10 @@ $timeline-thickness: 4px;
 .timeline-me-horizontal {
 	overflow-x: scroll;
 
-	.timeline-me-item { display: inline-block; }
+	.timeline-me-item { 
+		display: table-cell;
+		vertical-align: middle; 
+	}
 
 	.timeline-me-fix-height {
 		.timeline-me-label { height: 150px; }
@@ -120,7 +131,7 @@ $timeline-thickness: 4px;
 		.timeline-me-content { width: 400px; }
 	}
 
-	.timeline-me-label { bottom: - ($label-picto-total-size - $timeline-thickness) / 2; }
+	/*.timeline-me-label { bottom: - ($label-picto-total-size - $timeline-thickness) / 2; }*/
 }
 
 .timeline-me-item {
@@ -246,6 +257,15 @@ $timeline-thickness: 4px;
 	.timeline-me-shortcontent { display: none; }
 }
 
+.timeline-me-horizontal .timeline-me-milestone {
+	&.timeline-me-top {
+		.timeline-me-label { bottom: ($label-picto-total-size / 2); }
+	}
+	&.timeline-me-bottom {
+		.timeline-me-label { top: ($label-picto-total-size / 2); }
+	}
+}
+
 
 
 /* ----------------- *\
@@ -274,7 +294,6 @@ $timeline-thickness: 4px;
 	&.timeline-me-left,
 	&:not(.timeline-me-top):not(.timeline-me-right):not(.timeline-me-bottom) {
 		.timeline-me-label {
-				height: $label-picto-total-size;
 				line-height: $label-picto-total-size;
 			    left: 50%;
 			    top: 12px - ($label-picto-total-size / 2);
@@ -307,13 +326,34 @@ $timeline-thickness: 4px;
 
 	/* Specific for 'top' position item */
 	&.timeline-me-top {
+		.timeline-me-label {
+				line-height: $label-picto-total-size;
+			    top: 50%;
+			    left: 12px - ($label-picto-total-size / 2);
+			    margin-top: - ($label-picto-total-size / 2);
+			    text-align: left;
+			    padding-top: ($label-picto-total-size + $label-picto-sepa);
 
+			.timeline-me-picto { top: 0px; }
+		}
+		.timeline-me-content-container { 
+			transform: translate(0, -50%) translate(0, -(($label-picto-total-size / 2) + 7px));
+		}
+		.timeline-me-fullcontent,
+		.timeline-me-shortcontent {  
+			&:before {
+			    background-color: inherit;
+			    @include transform(rotate(45deg));
+			    height: 10px;
+			    width: 10px;
+			    bottom: -5px;
+			}
+		}
 	}
 
 	/* Specific for 'right' position item */
 	&.timeline-me-right {
 		.timeline-me-label {
-			height: $label-picto-total-size;
 			line-height: $label-picto-total-size;
 			right: 50%;
 			top: 12px - ($label-picto-total-size / 2);
@@ -345,7 +385,29 @@ $timeline-thickness: 4px;
 
 	/* Specific for 'bottom' position item */
 	&.timeline-me-bottom {
+		.timeline-me-label {
+				line-height: $label-picto-total-size;
+			    bottom: 50%;
+			    left: 12px - ($label-picto-total-size / 2);
+			    margin-bottom: - ($label-picto-total-size / 2);
+			    text-align: left;
+			    padding-bottom: ($label-picto-total-size + $label-picto-sepa);
 
+			.timeline-me-picto { bottom: 0px; }
+		}
+		.timeline-me-content-container { 
+			transform: translate(0, 50%) translate(0, (($label-picto-total-size / 2) + 7px));
+		}
+		.timeline-me-fullcontent,
+		.timeline-me-shortcontent {  
+			&:before {
+			    background-color: inherit;
+			    @include transform(rotate(45deg));
+			    height: 10px;
+			    width: 10px;
+			    top: -5px;
+			}
+		}
 	}
 
 	.timeline-me-content-container { box-sizing: border-box; }
@@ -357,7 +419,6 @@ $timeline-thickness: 4px;
 		&:before {
 		    content: '';
 		    position: absolute;
-		    top: 7px;
 		}
 	}
 
@@ -422,6 +483,18 @@ $timeline-thickness: 4px;
 		.timeline-me-showmore { display: none; }
 
 		.timeline-me-showless { display: block; }
+	}
+}
+
+.timeline-me-horizontal .timeline-me-bigitem {
+	.timeline-me-item-wrapper { 
+		display: table;
+
+		.timeline-me-label-wrapper,
+		.timeline-me-content-wrapper { 
+			display: table-cell; 
+			vertical-align: middle;
+		}
 	}
 }
 

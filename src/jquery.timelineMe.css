@@ -10,7 +10,6 @@
 .timeline-me-track {
   position: relative;
 }
-
 .timeline-me-track:before {
   content: '';
   position: absolute;
@@ -25,6 +24,9 @@
   margin-left: -2px;
 }
 
+.timeline-me-horizontal .timeline-me-track {
+  display: table;
+}
 .timeline-me-horizontal .timeline-me-track:before {
   top: 50%;
   left: 0;
@@ -38,9 +40,11 @@
 \* -------------------- */
 .timeline-me-horizontal {
   overflow-x: scroll;
+  /*.timeline-me-label { bottom: - ($label-picto-total-size - $timeline-thickness) / 2; }*/
 }
 .timeline-me-horizontal .timeline-me-item {
-  display: inline-block;
+  display: table-cell;
+  vertical-align: middle;
 }
 .timeline-me-horizontal .timeline-me-fix-height .timeline-me-label {
   height: 150px;
@@ -53,9 +57,6 @@
 }
 .timeline-me-horizontal .timeline-me-fix-width .timeline-me-content {
   width: 400px;
-}
-.timeline-me-horizontal .timeline-me-label {
-  bottom: -16px;
 }
 
 .timeline-me-item {
@@ -171,6 +172,13 @@
   display: none;
 }
 
+.timeline-me-horizontal .timeline-me-milestone.timeline-me-top .timeline-me-label {
+  bottom: 18px;
+}
+.timeline-me-horizontal .timeline-me-milestone.timeline-me-bottom .timeline-me-label {
+  top: 18px;
+}
+
 /* ----------------- *\
    SMALLITEM ELEMENT
 \* ----------------- */
@@ -196,7 +204,6 @@
   overflow: hidden;
 }
 .timeline-me-smallitem.timeline-me-left .timeline-me-label, .timeline-me-smallitem:not(.timeline-me-top):not(.timeline-me-right):not(.timeline-me-bottom) .timeline-me-label {
-  height: 36px;
   line-height: 36px;
   left: 50%;
   top: -6px;
@@ -227,8 +234,33 @@
   width: 10px;
   right: -5px;
 }
+.timeline-me-smallitem.timeline-me-top .timeline-me-label {
+  line-height: 36px;
+  top: 50%;
+  left: -6px;
+  margin-top: -18px;
+  text-align: left;
+  padding-top: 39px;
+}
+.timeline-me-smallitem.timeline-me-top .timeline-me-label .timeline-me-picto {
+  top: 0px;
+}
+.timeline-me-smallitem.timeline-me-top .timeline-me-content-container {
+  transform: translate(0, -50%) translate(0, -25px);
+}
+.timeline-me-smallitem.timeline-me-top .timeline-me-fullcontent:before,
+.timeline-me-smallitem.timeline-me-top .timeline-me-shortcontent:before {
+  background-color: inherit;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  height: 10px;
+  width: 10px;
+  bottom: -5px;
+}
 .timeline-me-smallitem.timeline-me-right .timeline-me-label {
-  height: 36px;
   line-height: 36px;
   right: 50%;
   top: -6px;
@@ -257,6 +289,32 @@
   width: 10px;
   left: -5px;
 }
+.timeline-me-smallitem.timeline-me-bottom .timeline-me-label {
+  line-height: 36px;
+  bottom: 50%;
+  left: -6px;
+  margin-bottom: -18px;
+  text-align: left;
+  padding-bottom: 39px;
+}
+.timeline-me-smallitem.timeline-me-bottom .timeline-me-label .timeline-me-picto {
+  bottom: 0px;
+}
+.timeline-me-smallitem.timeline-me-bottom .timeline-me-content-container {
+  transform: translate(0, 50%) translate(0, 25px);
+}
+.timeline-me-smallitem.timeline-me-bottom .timeline-me-fullcontent:before,
+.timeline-me-smallitem.timeline-me-bottom .timeline-me-shortcontent:before {
+  background-color: inherit;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  height: 10px;
+  width: 10px;
+  top: -5px;
+}
 .timeline-me-smallitem .timeline-me-content-container {
   box-sizing: border-box;
 }
@@ -268,7 +326,6 @@
 .timeline-me-smallitem .timeline-me-shortcontent:before {
   content: '';
   position: absolute;
-  top: 7px;
 }
 .timeline-me-smallitem .timeline-me-displayfull .timeline-me-shortcontent, .timeline-me-smallitem.timeline-me-displayfull .timeline-me-shortcontent {
   display: none;
@@ -326,6 +383,15 @@
 }
 .timeline-me-bigitem .timeline-me-flipped .timeline-me-showless, .timeline-me-bigitem.timeline-me-flipped .timeline-me-showless {
   display: block;
+}
+
+.timeline-me-horizontal .timeline-me-bigitem .timeline-me-item-wrapper {
+  display: table;
+}
+.timeline-me-horizontal .timeline-me-bigitem .timeline-me-item-wrapper .timeline-me-label-wrapper,
+.timeline-me-horizontal .timeline-me-bigitem .timeline-me-item-wrapper .timeline-me-content-wrapper {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 /* --------------- *\
