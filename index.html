@@ -436,12 +436,36 @@ $('#timeline-get-item-button').on('click', function() {
     {
       type: 'smallItem',
       label: 'my label 2',
-      shortContent: 'short description 2'
+      shortContent: 'short description',
+      fullContent: 'big description &lt;br> with more lines &lt;br> than the short one. &lt;br> &lt;div style="text-align: center;">&lt;img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" />&lt;/div>',
+      showMore: 'show more',
+      showLess: 'show less'
+    },
+    {
+      type: 'smallItem',
+      label: 'my label 2bis',
+      shortContent: 'short description',
+      fullContent: 'big description &lt;br> with more lines &lt;br> than the short one. &lt;br> &lt;div style="text-align: center;">&lt;img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" />&lt;/div>',
+      showMore: 'show more',
+      showLess: 'show less',
+      forcePosition: 'top'
+    },
+    {
+      type: 'smallItem',
+      label: 'my label 2ter',
+      shortContent: 'short description',
+      fullContent: 'big description &lt;br> with more lines &lt;br> than the short one. &lt;br> &lt;div style="text-align: center;">&lt;img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" />&lt;/div>',
+      showMore: 'show more',
+      showLess: 'show less',
+      forcePosition: 'top'
     },
     {
       type: 'bigItem',
-      label: 'my label 3',
-      shortContent: 'short description 3'
+      label: '&lt;span style="background-color: #8DD8DD;">my label 3&lt;/span>',
+      shortContent: 'short description',
+      fullContent: 'big description &lt;br> with more lines &lt;br> than the short one. &lt;br> &lt;div style="text-align: center;">&lt;img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" />&lt;/div>',
+      showMore: 'show more',
+      showLess: 'show less'
     }
   ]
 });</code></pre>
@@ -450,9 +474,9 @@ $('#timeline-get-item-button').on('click', function() {
         </div>
         <p>
           WORK IN PROGRESS
-          - fill "timeline-me-top" & "timeline-me-bottom" classes
-          - smallItem's label isn't at the same height as the others
-          - bigItem should use full height
+          - find a solution to place correctly smallItems AND keep the auto-resize of the timeline container. Currently with the translated item, it's not working well.
+          - Propagate the "item separation" to vertical mode.
+          - implement arrows and/or sliding zones to remove the native scroll.
         </p>
       <!-- END -->
 
@@ -618,12 +642,36 @@ $('#timeline-get-item-button').on('click', function() {
             {
               type: 'smallItem',
               label: 'my label 2',
-              shortContent: 'short description 2'
+              shortContent: 'short description',
+              fullContent: 'big description <br> with more lines <br> than the short one. <br> <div style="text-align: center;"><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" /></div>',
+              showMore: 'show more',
+              showLess: 'show less'
+            },
+            {
+              type: 'smallItem',
+              label: 'my label 2bis',
+              shortContent: 'short description',
+              fullContent: 'big description <br> with more lines <br> than the short one. <br> <div style="text-align: center;"><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" /></div>',
+              showMore: 'show more',
+              showLess: 'show less',
+              forcePosition: 'top'
+            },
+            {
+              type: 'smallItem',
+              label: 'my label 2ter',
+              shortContent: 'short description',
+              fullContent: 'big description <br> with more lines <br> than the short one. <br> <div style="text-align: center;"><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" /></div>',
+              showMore: 'show more',
+              showLess: 'show less',
+              forcePosition: 'top'
             },
             {
               type: 'bigItem',
-              label: 'my label 3',
-              shortContent: 'short description 3'
+              label: '<span style="background-color: #8DD8DD;">my label 3</span>',
+              shortContent: 'short description',
+              fullContent: 'big description <br> with more lines <br> than the short one. <br> <div style="text-align: center;"><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" /></div>',
+              showMore: 'show more',
+              showLess: 'show less'
             }
           ]
         });

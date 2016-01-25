@@ -45,6 +45,8 @@
 .timeline-me-horizontal .timeline-me-item {
   display: table-cell;
   vertical-align: middle;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .timeline-me-horizontal .timeline-me-fix-height .timeline-me-label {
   height: 150px;
@@ -173,10 +175,10 @@
 }
 
 .timeline-me-horizontal .timeline-me-milestone.timeline-me-top .timeline-me-label {
-  bottom: 18px;
+  bottom: 16px;
 }
 .timeline-me-horizontal .timeline-me-milestone.timeline-me-bottom .timeline-me-label {
-  top: 18px;
+  top: 16px;
 }
 
 /* ----------------- *\
@@ -187,6 +189,9 @@
   /* Specific for 'top' position item */
   /* Specific for 'right' position item */
   /* Specific for 'bottom' position item */
+}
+.timeline-me-smallitem .timeline-me-item-wrapper {
+  position: relative;
 }
 .timeline-me-smallitem .timeline-me-label {
   position: absolute;
@@ -392,6 +397,14 @@
 .timeline-me-horizontal .timeline-me-bigitem .timeline-me-item-wrapper .timeline-me-content-wrapper {
   display: table-cell;
   vertical-align: middle;
+}
+.timeline-me-horizontal .timeline-me-bigitem .timeline-me-label {
+  margin-bottom: 0;
+  bottom: 16px;
+}
+.timeline-me-horizontal .timeline-me-bigitem .timeline-me-content-container {
+  width: 100%;
+  margin: 0;
 }
 
 /* --------------- *\

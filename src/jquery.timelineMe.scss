@@ -5,6 +5,8 @@
 $item-bg-color: #ffffff;
 $timeline-color: #555555;
 
+$horizontal-item-sepa: 10px;
+
 $label-bg-color: $item-bg-color;
 $label-picto-size: 30px;
 $label-picto-border: 3px;
@@ -119,6 +121,8 @@ $timeline-thickness: 4px;
 	.timeline-me-item { 
 		display: table-cell;
 		vertical-align: middle; 
+		padding-left: $horizontal-item-sepa;
+		padding-right: $horizontal-item-sepa;
 	}
 
 	.timeline-me-fix-height {
@@ -259,10 +263,10 @@ $timeline-thickness: 4px;
 
 .timeline-me-horizontal .timeline-me-milestone {
 	&.timeline-me-top {
-		.timeline-me-label { bottom: ($label-picto-total-size / 2); }
+		.timeline-me-label { bottom: ($label-picto-total-size - $timeline-thickness) / 2; }
 	}
 	&.timeline-me-bottom {
-		.timeline-me-label { top: ($label-picto-total-size / 2); }
+		.timeline-me-label { top: ($label-picto-total-size - $timeline-thickness) / 2; }
 	}
 }
 
@@ -273,6 +277,8 @@ $timeline-thickness: 4px;
 \* ----------------- */
 
 .timeline-me-smallitem {
+	.timeline-me-item-wrapper { position: relative; }
+
 	.timeline-me-label {
 		position: absolute;
 
@@ -438,6 +444,8 @@ $timeline-thickness: 4px;
 	.timeline-me-fullcontent { display: none; }
 }
 
+.timeline-me-horizontal .timeline-me-smallitem {}
+
 
 
 /* --------------- *\
@@ -495,6 +503,16 @@ $timeline-thickness: 4px;
 			display: table-cell; 
 			vertical-align: middle;
 		}
+	}
+
+	.timeline-me-label {
+		margin-bottom: 0;
+		bottom: ($label-picto-total-size - $timeline-thickness) / 2;
+	}
+
+	.timeline-me-content-container { 
+		width: 100%;
+		margin: 0; 
 	}
 }
 
