@@ -57,13 +57,31 @@
         init: function() {
             this.$el.addClass('timeline-me-container');
 
+            if(this.settings.orientation == 'horizontal') {
+                this.$el.addClass('timeline-me-horizontal');
+            } else {
+                this.$el.addClass('timeline-me-vertical');
+            }
+
+            var track = $('<div class="timeline-me-track">');
+            if(this.settings.fixDimension == 'height')
+                track.addClass('timeline-me-fix-height');
+            else
+                track.addClass('timeline-me-fix-width');
+            this.$el.append(track);
+
             if(this.settings.items && this.settings.items.length > 0) {
                 this.content = this.settings.items;
 
                 this._fillItemsPosition(this.content);
 
                 for(var i = 0; i < this.content.length; i++) {
-                    this.$el.append(this._createItemElement(this.content[i]));
+                    track.append(this._createItemElement(this.content[i]));
+                    if(this.settings.orientation == 'horizontal')
+                        resolveContainerWidth(track);
+                        //TODO: Following line has to be done through a specific method
+                        //that would calculate an optimized height for horizontal mode
+                        track.height('300px');
                 }
             }
         },
@@ -158,7 +176,7 @@
             var positions;
             if(this.settings.orientation == 'horizontal')
                 positions = ['top', 'bottom'];
-             else
+            else
                 positions = ['left', 'right'];
 
             for(var i = 0; i < this.content.length; i++) {
@@ -295,17 +313,36 @@
             if(!item || !item.element)
                 return;
 
-            var labelElm = $('<div class="timeline-me-label">');
-            item.element.append(labelElm);
-            item.labelElement = labelElm;
+            var pixelsRegex = /[0-9]+px$/;
+            // Following wrapper are only used in horizontal mode, in order to correctly display bigItems (with table display)
+            var itemWrapper = $('<div class="timeline-me-item-wrapper">');
+            var labelWrapper = $('<div class="timeline-me-label-wrapper">');
+            var contentWrapper = $('<div class="timeline-me-content-wrapper">');
 
+            var labelElm = $('<div class="timeline-me-label">');
+            item.labelElement = labelElm;
+            if(this.settings.orientation == 'horizontal' && this.settings.labelDimensionValue && pixelsRegex.test(this.settings.labelDimensionValue)) {
+                if(this.settings.fixDimension == 'height')
+                    labelElm.css('height', this.settings.labelDimensionValue);
+                else
+                    labelElm.css('width', this.settings.labelDimensionValue);
+            }
             var pictoElm = $('<div class="timeline-me-picto">');
             item.pictoElement = pictoElm;
+
+            labelWrapper.append(labelElm);
+            itemWrapper.append(labelWrapper);
 
             if(item.type == 'smallItem' || item.type == 'bigItem') {
                 var contentContainer = $('<div class="timeline-me-content-container">');
                 var contentElm = $('<div class="timeline-me-content"></div>');
                 contentContainer.append(contentElm);
+                if(this.settings.orientation == 'horizontal' && this.settings.contentDimensionValue && pixelsRegex.test(this.settings.contentDimensionValue)) {
+                    if(this.settings.fixDimension == 'height')
+                        contentElm.css('height', this.settings.contentDimensionValue);
+                    else
+                        contentElm.css('width', this.settings.contentDimensionValue);
+                }
 
                 var shortContentElm = $('<div class="timeline-me-shortcontent">');
                 contentElm.append(shortContentElm);
@@ -321,8 +358,11 @@
                 var showLessElm = $('<div class="timeline-me-showless">');
                 item.showLessElement = showLessElm;
 
-                item.element.append(contentContainer);
+                contentWrapper.append(contentContainer);
+                itemWrapper.append(contentWrapper);
             }
+
+            item.element.append(itemWrapper);
         },
 
         // Method that fills the item's element with content passed through the options
@@ -455,6 +495,23 @@
      * These are real private methods. A plugin instance has access to them
      * @return {[type]}
      */
+    // Method that return container width depending on children's width
+    var resolveContainerWidth = function(element) {
+        if(!element) return;
+
+        var children = element.children();
+        if(children.length <= 0) return;
+
+        var totalWidth = 0;
+        for(var i = 0; i < children.length; i++) {
+            totalWidth += $(children[i]).width();
+        }
+
+        element.width(totalWidth);
+
+        //TO BE CONTINUED
+    }
+
     // Method that can return an element's height through a promise (so it'll be resolve only when the element will have a positive height)
     var resolveElementHeight = function(element, args) {
         if(!args) 
@@ -583,7 +640,11 @@
      */
     $.fn[pluginName].defaults = {
         orientation         : 'vertical',
-        items               : []
+        items               : [],
+        // horizontal-orientation specific options
+        fixDimension        : 'width',
+        contentDimensionValue  : '400px',
+        labelDimensionValue : '200px'
     };
  
 }(jQuery));
