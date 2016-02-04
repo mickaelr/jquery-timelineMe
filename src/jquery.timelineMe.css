@@ -93,6 +93,11 @@
   display: none;
 }
 
+.timeline-me-hidden {
+  position: relative;
+  z-index: -1000;
+}
+
 /* ----------------- *\
    MILESTONE ELEMENT
 \* ----------------- */
@@ -250,8 +255,8 @@
 .timeline-me-smallitem.timeline-me-top .timeline-me-label .timeline-me-picto {
   top: 0px;
 }
-.timeline-me-smallitem.timeline-me-top .timeline-me-content-container {
-  transform: translate(0, -50%) translate(0, -25px);
+.timeline-me-smallitem.timeline-me-top .timeline-me-content-wrapper:not(.timeline-me-hidden) {
+  margin-bottom: 50px;
 }
 .timeline-me-smallitem.timeline-me-top .timeline-me-fullcontent:before,
 .timeline-me-smallitem.timeline-me-top .timeline-me-shortcontent:before {
@@ -305,8 +310,8 @@
 .timeline-me-smallitem.timeline-me-bottom .timeline-me-label .timeline-me-picto {
   bottom: 0px;
 }
-.timeline-me-smallitem.timeline-me-bottom .timeline-me-content-container {
-  transform: translate(0, 50%) translate(0, 25px);
+.timeline-me-smallitem.timeline-me-bottom .timeline-me-content-wrapper:not(.timeline-me-hidden) {
+  margin-top: 50px;
 }
 .timeline-me-smallitem.timeline-me-bottom .timeline-me-fullcontent:before,
 .timeline-me-smallitem.timeline-me-bottom .timeline-me-shortcontent:before {
@@ -354,6 +359,9 @@
 /* --------------- *\
    BIGITEM ELEMENT
 \* --------------- */
+.timeline-me-bigitem {
+  /* to avoid "not clickable" effect on flipped element */
+}
 .timeline-me-bigitem .timeline-me-label {
   position: relative;
   margin-bottom: 10px;
@@ -374,6 +382,10 @@
   margin-left: -18px;
   text-align: center;
   overflow: hidden;
+}
+.timeline-me-bigitem .timeline-me-content-wrapper {
+  position: relative;
+  z-index: 1000;
 }
 .timeline-me-bigitem .timeline-me-content-container {
   width: 80%;

@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------
  *JAVASCRIPT "timelineMe.js"
- *Version:    0.1.3 - 2015
+ *Version:    0.1.4 - 2015
  *author:     Mickaël Roy
  *website:    http://www.mickaelroy.com
  *Licensed MIT 
@@ -64,10 +64,6 @@
             }
 
             var track = $('<div class="timeline-me-track">');
-            if(this.settings.fixDimension == 'height')
-                track.addClass('timeline-me-fix-height');
-            else
-                track.addClass('timeline-me-fix-width');
             this.$el.append(track);
 
             if(this.settings.items && this.settings.items.length > 0) {
@@ -77,11 +73,13 @@
 
                 for(var i = 0; i < this.content.length; i++) {
                     track.append(this._createItemElement(this.content[i]));
-                    if(this.settings.orientation == 'horizontal')
+                    if(this.settings.orientation == 'horizontal') {
                         resolveContainerWidth(track);
                         //TODO: Following line has to be done through a specific method
                         //that would calculate an optimized height for horizontal mode
+                        //try to use dimensionWatcher plugin (from mickaelr - my own Github account)
                         track.height('300px');
+                    }
                 }
             }
         },
@@ -322,10 +320,7 @@
             var labelElm = $('<div class="timeline-me-label">');
             item.labelElement = labelElm;
             if(this.settings.orientation == 'horizontal' && this.settings.labelDimensionValue && pixelsRegex.test(this.settings.labelDimensionValue)) {
-                if(this.settings.fixDimension == 'height')
-                    labelElm.css('height', this.settings.labelDimensionValue);
-                else
-                    labelElm.css('width', this.settings.labelDimensionValue);
+                labelElm.css('width', this.settings.labelDimensionValue);
             }
             var pictoElm = $('<div class="timeline-me-picto">');
             item.pictoElement = pictoElm;
@@ -338,10 +333,7 @@
                 var contentElm = $('<div class="timeline-me-content"></div>');
                 contentContainer.append(contentElm);
                 if(this.settings.orientation == 'horizontal' && this.settings.contentDimensionValue && pixelsRegex.test(this.settings.contentDimensionValue)) {
-                    if(this.settings.fixDimension == 'height')
-                        contentElm.css('height', this.settings.contentDimensionValue);
-                    else
-                        contentElm.css('width', this.settings.contentDimensionValue);
+                    contentElm.css('width', this.settings.contentDimensionValue);
                 }
 
                 var shortContentElm = $('<div class="timeline-me-shortcontent">');
@@ -363,6 +355,10 @@
             }
 
             item.element.append(itemWrapper);
+
+            item.itemWrapperElement = itemWrapper;
+            item.labelWrapperElement = labelWrapper;
+            item.contentWrapperElement = contentWrapper; 
         },
 
         // Method that fills the item's element with content passed through the options
@@ -457,6 +453,21 @@
             if(this.settings.showLessClass && item.showLessElement) {
                 item.showLessElement.addClass(this.settings.showLessClass);
             }
+
+            // if the timeline is in horizontal mode, we create a cloned version of the contentWrapper element, that will be hidden, 
+            // in order to place it correctly above/below the timeline (will simulate a margin-bottom/margin-top equals to the height of the contentWrapper)
+            if(item.type == 'smallItem' && this.settings.orientation == 'horizontal') {
+                if(item.contentWrapperClone)
+                    delete item.contentWrapperClone;
+
+                var contentWrapperClone = item.contentWrapperElement.clone();
+                if(item.position == 'top')
+                    item.contentWrapperElement.after(contentWrapperClone);
+                if(item.position == 'bottom')
+                    item.contentWrapperElement.before(contentWrapperClone);
+                contentWrapperClone.addClass('timeline-me-hidden');
+                item.contentWrapperClone = contentWrapperClone;
+            }
         },
 
         // Method that will refresh items' elements (still in progress)
@@ -508,94 +519,7 @@
         }
 
         element.width(totalWidth);
-
-        //TO BE CONTINUED
-    }
-
-    // Method that can return an element's height through a promise (so it'll be resolve only when the element will have a positive height)
-    var resolveElementHeight = function(element, args) {
-        if(!args) 
-            args = {};
-        var refreshDelay = args.refreshDelay ? args.refreshDelay : 500;
-        var ret = new $.Deferred();
-        var elmHeight;
-
-        if(element)
-            elmHeight = element.height();
-        if(elmHeight && elmHeight > 0) {
-            ret.resolve(elmHeight);
-        } else {
-            setTimeout(function () {
-                resolveElementHeight(element, args).then(function(heightData) {
-                    ret.resolve(heightData);
-                });
-            }, refreshDelay);
-        }
-        
-        return ret;
-    }
-
-    // Method that can return an element's height through an event (event will be fired only when the element will have a positive height)
-    var eventElementHeight = function(element, args) {
-        if(!args) 
-            args = {};
-        var eventName = args.eventName ? args.eventName : 'onElementHeight';
-        var refreshDelay = args.refreshDelay ? args.refreshDelay : 500;
-        var elmHeight;
-
-        if(element)
-            elmHeight = element.height();
-        if(elmHeight && elmHeight > 0) {
-            var e = jQuery.Event(eventName, {elementHeight: elmHeight});
-            element.trigger(e);
-        } else {
-            setTimeout(function () {
-                eventElementHeight(element, args);
-            }, refreshDelay);
-        }
-    }
-
-    // Method that can return an element's height when it's changing
-    var resolveElementHeightChange = function(element, args) {
-        if(!args) 
-            args = {};
-        var refreshDelay = args.refreshDelay ? args.refreshDelay : 500;
-        var previousHeight = args.previousHeight;
-        var level = args.level ? args.level : 0;
-        var ret = new $.Deferred();
-        var elmHeight;
-
-        if(element)
-            elmHeight = element[0].getBoundingClientRect().height;
-
-        if(elmHeight && (!previousHeight || previousHeight != elmHeight)) {
-            ret.resolve(elmHeight, previousHeight, level);
-        } else {
-            args.previousHeight = elmHeight;
-            setTimeout(function () {
-                resolveElementHeightChange(element, {previousHeight: elmHeight, refreshDelay: refreshDelay, level: (level + 1)}).then(function(newHeightVal, previousHeightVal, levelVal) {
-                    ret.resolve(newHeightVal, previousHeightVal, level);
-                });
-            }, refreshDelay);
-        }
-        
-        return ret;
-    }
-
-    // Method that can watch for an element's height change (uses the resolveElementHeightChange function)
-    var heightWatcher = function(element, callback) {
-        resolveElementHeightChange(element).then(function(newVal, oldVal) {
-            var heightEvent = jQuery.Event('timelineMe.itemHeightChanged', {elementHeight: newVal, previousHeight: oldVal});
-            element.trigger(heightEvent);
-        });
-        element.on('timelineMe.itemHeightChanged', function(e) {
-            callback({element: element, newVal: e.elementHeight, oldVal: e.previousHeight});
-            resolveElementHeightChange($(e.target), {previousHeight: e.elementHeight}).then(function(newVal, oldVal) {
-                var heightEvent = jQuery.Event('timelineMe.itemHeightChanged', {elementHeight: newVal, previousHeight: oldVal});
-                $(e.target).trigger(heightEvent);
-            });
-        });
-    }
+    };
     
     $.fn[pluginName] = function(options) {
         var args = arguments;
@@ -642,7 +566,6 @@
         orientation         : 'vertical',
         items               : [],
         // horizontal-orientation specific options
-        fixDimension        : 'width',
         contentDimensionValue  : '400px',
         labelDimensionValue : '200px'
     };
