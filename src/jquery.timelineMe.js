@@ -521,6 +521,91 @@
         element.width(totalWidth);
     };
     
+// Method that can return an element's height through a promise (so it'll be resolve only when the element will have a positive height)
+    var resolveElementHeight = function(element, args) {
+        if(!args) 
+            args = {};
+        var refreshDelay = args.refreshDelay ? args.refreshDelay : 500;
+        var ret = new $.Deferred();
+        var elmHeight;
+
+        if(element)
+            elmHeight = element.height();
+        if(elmHeight && elmHeight > 0) {
+            ret.resolve(elmHeight);
+        } else {
+            setTimeout(function () {
+                resolveElementHeight(element, args).then(function(heightData) {
+                    ret.resolve(heightData);
+                });
+            }, refreshDelay);
+        }
+        
+        return ret;
+    }
+
+    // Method that can return an element's height through an event (event will be fired only when the element will have a positive height)
+    var eventElementHeight = function(element, args) {
+        if(!args) 
+            args = {};
+        var eventName = args.eventName ? args.eventName : 'onElementHeight';
+        var refreshDelay = args.refreshDelay ? args.refreshDelay : 500;
+        var elmHeight;
+
+        if(element)
+            elmHeight = element.height();
+        if(elmHeight && elmHeight > 0) {
+            var e = jQuery.Event(eventName, {elementHeight: elmHeight});
+            element.trigger(e);
+        } else {
+            setTimeout(function () {
+                eventElementHeight(element, args);
+            }, refreshDelay);
+        }
+    }
+
+    // Method that can return an element's height when it's changing
+    var resolveElementHeightChange = function(element, args) {
+        if(!args) 
+            args = {};
+        var refreshDelay = args.refreshDelay ? args.refreshDelay : 500;
+        var previousHeight = args.previousHeight;
+        var level = args.level ? args.level : 0;
+        var ret = new $.Deferred();
+        var elmHeight;
+
+        if(element)
+            elmHeight = element[0].getBoundingClientRect().height;
+
+        if(elmHeight && (!previousHeight || previousHeight != elmHeight)) {
+            ret.resolve(elmHeight, previousHeight, level);
+        } else {
+            args.previousHeight = elmHeight;
+            setTimeout(function () {
+                resolveElementHeightChange(element, {previousHeight: elmHeight, refreshDelay: refreshDelay, level: (level + 1)}).then(function(newHeightVal, previousHeightVal, levelVal) {
+                    ret.resolve(newHeightVal, previousHeightVal, level);
+                });
+            }, refreshDelay);
+        }
+        
+        return ret;
+    }
+
+    // Method that can watch for an element's height change (uses the resolveElementHeightChange function)
+    var heightWatcher = function(element, callback) {
+        resolveElementHeightChange(element).then(function(newVal, oldVal) {
+            var heightEvent = jQuery.Event('timelineMe.itemHeightChanged', {elementHeight: newVal, previousHeight: oldVal});
+            element.trigger(heightEvent);
+        });
+        element.on('timelineMe.itemHeightChanged', function(e) {
+            callback({element: element, newVal: e.elementHeight, oldVal: e.previousHeight});
+            resolveElementHeightChange($(e.target), {previousHeight: e.elementHeight}).then(function(newVal, oldVal) {
+                var heightEvent = jQuery.Event('timelineMe.itemHeightChanged', {elementHeight: newVal, previousHeight: oldVal});
+                $(e.target).trigger(heightEvent);
+            });
+        });
+    }
+
     $.fn[pluginName] = function(options) {
         var args = arguments;
 
