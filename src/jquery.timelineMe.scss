@@ -164,6 +164,11 @@ $timeline-thickness: 4px;
 
 .timeline-me-showless { display: none; }
 
+.timeline-me-hidden { 
+	position: relative;
+	z-index: -1000;
+}
+
 
 
 /* ----------------- *\
@@ -342,8 +347,8 @@ $timeline-thickness: 4px;
 
 			.timeline-me-picto { top: 0px; }
 		}
-		.timeline-me-content-container { 
-			transform: translate(0, -50%) translate(0, -(($label-picto-total-size / 2) + 7px));
+		.timeline-me-content-wrapper:not(.timeline-me-hidden) { 
+			margin-bottom: ($label-picto-total-size + 14px);
 		}
 		.timeline-me-fullcontent,
 		.timeline-me-shortcontent {  
@@ -401,8 +406,8 @@ $timeline-thickness: 4px;
 
 			.timeline-me-picto { bottom: 0px; }
 		}
-		.timeline-me-content-container { 
-			transform: translate(0, 50%) translate(0, (($label-picto-total-size / 2) + 7px));
+		.timeline-me-content-wrapper:not(.timeline-me-hidden) { 
+			margin-top: ($label-picto-total-size + 14px);
 		}
 		.timeline-me-fullcontent,
 		.timeline-me-shortcontent {  
@@ -474,6 +479,12 @@ $timeline-thickness: 4px;
 			text-align: center; 
 			overflow: hidden;
 		}
+	}
+
+	/* to avoid "not clickable" effect on flipped element */
+	.timeline-me-content-wrapper { 
+		position: relative;
+		z-index: 1000;
 	}
 
 	.timeline-me-content-container { 
