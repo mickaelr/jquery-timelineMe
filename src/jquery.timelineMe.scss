@@ -6,6 +6,7 @@ $item-bg-color: #ffffff;
 $timeline-color: #555555;
 
 $horizontal-item-sepa: 10px;
+$vertical-item-sepa: $horizontal-item-sepa / 2;
 
 $label-bg-color: $item-bg-color;
 $label-picto-size: 30px;
@@ -15,6 +16,9 @@ $label-picto-total-size: $label-picto-size + 2 * $label-picto-border;
 $label-picto-sepa: 3px;
 
 $timeline-thickness: 4px;
+
+$scroll-zone-width: 50px;
+$scroll-zone-color: #8DD8DD;
 
 
 /* ------ *\
@@ -62,11 +66,21 @@ $timeline-thickness: 4px;
 }
 
 @mixin transition($args...) {
-  -webkit-transition: $args;
-  -moz-transition: $args;
-  -ms-transition: $args;
-  -o-transition: $args;
-  transition: $args;
+  	-webkit-transition: $args;
+  	-moz-transition: $args;
+  	-ms-transition: $args;
+  	-o-transition: $args;
+  	transition: $args;
+}
+
+@mixin bg-gradient-left-to-right($start-colour, $end-colour) {
+    background-image: -webkit-gradient(linear, left top, right top, from($start-colour), to($end-colour));
+    background-image: -webkit-linear-gradient(left, $start-colour, $end-colour);
+    background-image:    -moz-linear-gradient(left, $start-colour, $end-colour);
+    background-image:     -ms-linear-gradient(left, $start-colour, $end-colour);
+    background-image:      -o-linear-gradient(left, $start-colour, $end-colour);
+    background-image:         linear-gradient(left, $start-colour, $end-colour);
+    filter:            progid:DXImageTransform.Microsoft.gradient(start-colourStr='#{$start-colour}', end-colourStr='#{$end-colour}', gradientType='1');
 }
 
 
@@ -75,10 +89,19 @@ $timeline-thickness: 4px;
    MAIN CONTAINER
 \* -------------- */
 
-.timeline-me-container {}
+.timeline-me-container { 
+	position: relative;
+
+	&.no-scroll .timeline-me-wrapper { overflow: hidden; }
+
+	&.no-x-scroll .timeline-me-wrapper { overflow-x: hidden; }
+
+	&.no-y-scroll .timeline-me-wrapper { overflow-y: hidden; }
+}
 	
 .timeline-me-track { 
 	position: relative;
+	overflow: hidden;
 
 	&:before {
 		content: '';
@@ -109,6 +132,25 @@ $timeline-thickness: 4px;
 	}
 }
 
+.timeline-me-leftscroll,
+.timeline-me-rightscroll {
+	width: $scroll-zone-width;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	bottom: 0;
+}
+
+.timeline-me-leftscroll { 
+	left: 0; 
+	@include bg-gradient-left-to-right(rgba($scroll-zone-color, 1), rgba($scroll-zone-color, 0));
+}
+
+.timeline-me-rightscroll { 
+	right: 0;
+	@include bg-gradient-left-to-right(rgba($scroll-zone-color, 0), rgba($scroll-zone-color, 1));
+}
+
 
 
 /* -------------------- *\
@@ -116,7 +158,7 @@ $timeline-thickness: 4px;
 \* -------------------- */
 
 .timeline-me-horizontal {
-	overflow-x: scroll;
+	.timeline-me-wrapper { overflow-x: scroll; }
 
 	.timeline-me-item { 
 		display: table-cell;
@@ -136,6 +178,13 @@ $timeline-thickness: 4px;
 	}
 
 	/*.timeline-me-label { bottom: - ($label-picto-total-size - $timeline-thickness) / 2; }*/
+}
+
+.timeline-me-vertical {
+	.timeline-me-item {
+		padding-top: $vertical-item-sepa;
+		padding-bottom: $vertical-item-sepa;
+	}
 }
 
 .timeline-me-item {

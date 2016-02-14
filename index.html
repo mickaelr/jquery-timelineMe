@@ -100,6 +100,18 @@
                   <td>(not implemented yet) Timeline orientation: 'vetical' | 'horizontal'</td>
               </tr>
               <tr>
+                  <td>scrollZones</td>
+                  <td>boolean</td>
+                  <td>true</td>
+                  <td>(in progress) Enable/disable scrolling zones</td>
+              </tr>
+              <tr>
+                  <td>scrollBar</td>
+                  <td>boolean</td>
+                  <td>true</td>
+                  <td>(in progress) Enable/disable scrollbar</td>
+              </tr>
+              <tr>
                   <td>labelClass</td>
                   <td>string</td>
                   <td>undefined</td>
@@ -474,9 +486,10 @@ $('#timeline-get-item-button').on('click', function() {
         </div>
         <p>
           WORK IN PROGRESS
-          - find a solution to place correctly smallItems AND keep the auto-resize of the timeline container. Currently with the translated item, it's not working well.
-          - Propagate the "item separation" to vertical mode.
+          - flipping item (bigItem) isn't working well in IE.
           - implement arrows and/or sliding zones to remove the native scroll.
+          - describe sass variables that allow timeline customization.
+          - add same customization as in sass through js.
         </p>
       <!-- END -->
 

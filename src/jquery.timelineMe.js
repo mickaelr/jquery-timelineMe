@@ -59,12 +59,45 @@
 
             if(this.settings.orientation == 'horizontal') {
                 this.$el.addClass('timeline-me-horizontal');
+                if(this.settings.scrollBar == false)
+                    this.$el.addClass('no-x-scroll');
             } else {
                 this.$el.addClass('timeline-me-vertical');
+                if(this.settings.scrollBar == false)
+                    this.$el.addClass('no-y-scroll');
             }
 
+            var timelineWrapper = $('<div class="timeline-me-wrapper">');
+            this.$el.append(timelineWrapper);
+
             var track = $('<div class="timeline-me-track">');
-            this.$el.append(track);
+            timelineWrapper.append(track);
+
+            if(this.settings.scrollZones == true) {
+                var leftScroll = $('<div class="timeline-me-leftscroll">');
+                var rightScroll = $('<div class="timeline-me-rightscroll">');
+                timelineWrapper.before(leftScroll);
+                timelineWrapper.after(rightScroll);
+
+                leftScroll.on('mouseenter', function() {
+                    var timer = setInterval(function() {
+                        timelineWrapper.scrollLeft(timelineWrapper.scrollLeft() - 5);
+                    }, 20);
+                    
+                    leftScroll.on('mouseleave', function() {
+                        clearInterval(timer);
+                    });
+                });
+                rightScroll.on('mouseenter', function() {
+                    var timer = setInterval(function() {
+                        timelineWrapper.scrollLeft(timelineWrapper.scrollLeft() + 5);
+                    }, 20);
+                    
+                    rightScroll.on('mouseleave', function() {
+                        clearInterval(timer);
+                    });
+                });
+            }
 
             if(this.settings.items && this.settings.items.length > 0) {
                 this.content = this.settings.items;
@@ -75,10 +108,6 @@
                     track.append(this._createItemElement(this.content[i]));
                     if(this.settings.orientation == 'horizontal') {
                         resolveContainerWidth(track);
-                        //TODO: Following line has to be done through a specific method
-                        //that would calculate an optimized height for horizontal mode
-                        //try to use dimensionWatcher plugin (from mickaelr - my own Github account)
-                        track.height('300px');
                     }
                 }
             }
@@ -650,6 +679,8 @@
     $.fn[pluginName].defaults = {
         orientation         : 'vertical',
         items               : [],
+        scrollZones         : true,
+        scrollBar           : true,
         // horizontal-orientation specific options
         contentDimensionValue  : '400px',
         labelDimensionValue : '200px'
