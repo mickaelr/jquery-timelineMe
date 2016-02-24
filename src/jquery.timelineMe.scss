@@ -647,6 +647,17 @@ $scroll-zone-color: #8DD8DD;
 		}
 	}
 
+	&.timeline-me-horizontal .timeline-me-smallitem {
+		.timeline-me-label {
+			text-align: center;
+
+			.timeline-me-picto {
+				left: 50%;
+				margin-left: - ($label-picto-total-size / 2);
+			}
+		}
+	}
+
 	&.timeline-me-horizontal .timeline-me-smallitem.timeline-me-top .timeline-me-label-wrapper { padding-top: $label-picto-total-size; }
 
 	&.timeline-me-horizontal .timeline-me-smallitem.timeline-me-bottom .timeline-me-label-wrapper { padding-bottom: $label-picto-total-size; }

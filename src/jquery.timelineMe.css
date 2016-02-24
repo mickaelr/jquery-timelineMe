@@ -571,6 +571,13 @@
   left: 0px;
   margin-left: 0;
 }
+.timeline-me-collapsed.timeline-me-horizontal .timeline-me-smallitem .timeline-me-label {
+  text-align: center;
+}
+.timeline-me-collapsed.timeline-me-horizontal .timeline-me-smallitem .timeline-me-label .timeline-me-picto {
+  left: 50%;
+  margin-left: -18px;
+}
 .timeline-me-collapsed.timeline-me-horizontal .timeline-me-smallitem.timeline-me-top .timeline-me-label-wrapper {
   padding-top: 36px;
 }
