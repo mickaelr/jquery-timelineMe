@@ -113,7 +113,8 @@
   padding-bottom: 5px;
 }
 
-.timeline-me-item {
+.timeline-me-item,
+.timeline-me-item:first-child {
   position: relative;
   margin: 20px 0px;
 }
@@ -161,6 +162,7 @@
 }
 .timeline-me-milestone .timeline-me-label {
   position: relative;
+  line-height: 36px;
 }
 .timeline-me-milestone .timeline-me-label .timeline-me-picto {
   position: absolute;
@@ -180,7 +182,6 @@
 }
 .timeline-me-milestone.timeline-me-right .timeline-me-label, .timeline-me-milestone:not(.timeline-me-top):not(.timeline-me-left):not(.timeline-me-bottom) .timeline-me-label {
   height: 36px;
-  line-height: 36px;
   padding-left: 39px;
   margin-left: -18px;
 }
@@ -207,7 +208,6 @@
 }
 .timeline-me-milestone.timeline-me-left .timeline-me-label {
   height: 36px;
-  line-height: 36px;
   padding-right: 39px;
   margin-right: -18px;
 }
@@ -231,11 +231,11 @@
   display: none;
 }
 
-.timeline-me-horizontal .timeline-me-milestone.timeline-me-top .timeline-me-label {
-  bottom: 16px;
+.timeline-me-horizontal .timeline-me-milestone.timeline-me-top .timeline-me-label-wrapper {
+  padding-bottom: 36px;
 }
-.timeline-me-horizontal .timeline-me-milestone.timeline-me-bottom .timeline-me-label {
-  top: 16px;
+.timeline-me-horizontal .timeline-me-milestone.timeline-me-bottom .timeline-me-label-wrapper {
+  padding-top: 36px;
 }
 
 /* ----------------- *\
@@ -252,6 +252,7 @@
 }
 .timeline-me-smallitem .timeline-me-label {
   position: absolute;
+  line-height: 36px;
 }
 .timeline-me-smallitem .timeline-me-label .timeline-me-picto {
   position: absolute;
@@ -266,9 +267,8 @@
   overflow: hidden;
 }
 .timeline-me-smallitem.timeline-me-left .timeline-me-label, .timeline-me-smallitem:not(.timeline-me-top):not(.timeline-me-right):not(.timeline-me-bottom) .timeline-me-label {
-  line-height: 36px;
   left: 50%;
-  top: -6px;
+  top: 0;
   margin-left: -18px;
   text-align: left;
   padding-left: 39px;
@@ -286,20 +286,19 @@
 .timeline-me-smallitem.timeline-me-left .timeline-me-shortcontent:before, .timeline-me-smallitem:not(.timeline-me-top):not(.timeline-me-right):not(.timeline-me-bottom) .timeline-me-fullcontent:before,
 .timeline-me-smallitem:not(.timeline-me-top):not(.timeline-me-right):not(.timeline-me-bottom) .timeline-me-shortcontent:before {
   background-color: inherit;
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
+  -webkit-transform: translateY(-50%) rotate(45deg);
+  -moz-transform: translateY(-50%) rotate(45deg);
+  -ms-transform: translateY(-50%) rotate(45deg);
+  -o-transform: translateY(-50%) rotate(45deg);
+  transform: translateY(-50%) rotate(45deg);
   height: 10px;
   width: 10px;
   right: -5px;
+  top: 18px;
 }
 .timeline-me-smallitem.timeline-me-top .timeline-me-label {
-  line-height: 36px;
   top: 50%;
-  left: -6px;
+  left: 0;
   margin-top: -18px;
   text-align: left;
   padding-top: 39px;
@@ -313,19 +312,19 @@
 .timeline-me-smallitem.timeline-me-top .timeline-me-fullcontent:before,
 .timeline-me-smallitem.timeline-me-top .timeline-me-shortcontent:before {
   background-color: inherit;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
+  -webkit-transform: translateX(-50%) rotate(45deg);
+  -moz-transform: translateX(-50%) rotate(45deg);
+  -ms-transform: translateX(-50%) rotate(45deg);
+  -o-transform: translateX(-50%) rotate(45deg);
+  transform: translateX(-50%) rotate(45deg);
   height: 10px;
   width: 10px;
   bottom: -5px;
+  left: 18px;
 }
 .timeline-me-smallitem.timeline-me-right .timeline-me-label {
-  line-height: 36px;
   right: 50%;
-  top: -6px;
+  top: 0;
   margin-right: -18px;
   text-align: right;
   padding-right: 39px;
@@ -342,19 +341,19 @@
 .timeline-me-smallitem.timeline-me-right .timeline-me-fullcontent:before,
 .timeline-me-smallitem.timeline-me-right .timeline-me-shortcontent:before {
   background-color: inherit;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
+  -webkit-transform: translateY(-50%) rotate(45deg);
+  -moz-transform: translateY(-50%) rotate(45deg);
+  -ms-transform: translateY(-50%) rotate(45deg);
+  -o-transform: translateY(-50%) rotate(45deg);
+  transform: translateY(-50%) rotate(45deg);
   height: 10px;
   width: 10px;
   left: -5px;
+  top: 18px;
 }
 .timeline-me-smallitem.timeline-me-bottom .timeline-me-label {
-  line-height: 36px;
   bottom: 50%;
-  left: -6px;
+  left: 0;
   margin-bottom: -18px;
   text-align: left;
   padding-bottom: 39px;
@@ -368,14 +367,15 @@
 .timeline-me-smallitem.timeline-me-bottom .timeline-me-fullcontent:before,
 .timeline-me-smallitem.timeline-me-bottom .timeline-me-shortcontent:before {
   background-color: inherit;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
+  -webkit-transform: translateX(-50%) rotate(45deg);
+  -moz-transform: translateX(-50%) rotate(45deg);
+  -ms-transform: translateX(-50%) rotate(45deg);
+  -o-transform: translateX(-50%) rotate(45deg);
+  transform: translateX(-50%) rotate(45deg);
   height: 10px;
   width: 10px;
   top: -5px;
+  left: 18px;
 }
 .timeline-me-smallitem .timeline-me-content-container {
   box-sizing: border-box;
@@ -383,6 +383,8 @@
 .timeline-me-smallitem .timeline-me-fullcontent,
 .timeline-me-smallitem .timeline-me-shortcontent {
   padding: 10px;
+  min-height: 18px;
+  min-width: 18px;
 }
 .timeline-me-smallitem .timeline-me-fullcontent:before,
 .timeline-me-smallitem .timeline-me-shortcontent:before {
@@ -419,6 +421,7 @@
   margin-bottom: 10px;
   text-align: center;
   padding-bottom: 39px;
+  line-height: 36px;
 }
 .timeline-me-bigitem .timeline-me-label .timeline-me-picto {
   position: absolute;
@@ -464,7 +467,7 @@
 }
 .timeline-me-horizontal .timeline-me-bigitem .timeline-me-label {
   margin-bottom: 0;
-  bottom: 16px;
+  bottom: 18px;
 }
 .timeline-me-horizontal .timeline-me-bigitem .timeline-me-content-container {
   width: 100%;
@@ -541,4 +544,36 @@
   -ms-transform: rotateY(180deg);
   -o-transform: rotateY(180deg);
   transform: rotateY(180deg);
+}
+
+/* -------------- *\
+   COLLAPSED MODE
+\* -------------- */
+.timeline-me-collapsed .timeline-me-smallitem .timeline-me-content-wrapper,
+.timeline-me-collapsed .timeline-me-bigitem .timeline-me-content-wrapper, .timeline-me-collapsed.timeline-me-horizontal .timeline-me-smallitem .timeline-me-content-wrapper, .timeline-me-collapsed.timeline-me-horizontal .timeline-me-bigitem .timeline-me-content-wrapper {
+  display: none;
+}
+.timeline-me-collapsed .timeline-me-smallitem .timeline-me-label,
+.timeline-me-collapsed .timeline-me-bigitem .timeline-me-label {
+  position: relative;
+  margin: 0;
+}
+.timeline-me-collapsed.timeline-me-vertical .timeline-me-bigitem .timeline-me-label {
+  padding-bottom: 0;
+  left: 50%;
+  top: 0;
+  margin-left: -18px;
+  text-align: left;
+  padding-left: 39px;
+}
+.timeline-me-collapsed.timeline-me-vertical .timeline-me-bigitem .timeline-me-label .timeline-me-picto {
+  top: 0;
+  left: 0px;
+  margin-left: 0;
+}
+.timeline-me-collapsed.timeline-me-horizontal .timeline-me-smallitem.timeline-me-top .timeline-me-label-wrapper {
+  padding-top: 36px;
+}
+.timeline-me-collapsed.timeline-me-horizontal .timeline-me-smallitem.timeline-me-bottom .timeline-me-label-wrapper {
+  padding-bottom: 36px;
 }

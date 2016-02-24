@@ -163,6 +163,29 @@
         },
 
         /**
+         * collapse method
+         *
+         * @example
+         * $('#element').pluginName('collapse', 'show');
+         * 
+         * @return element
+         */
+        collapse: function(method) {
+            switch(method) {
+                case 'toggle':
+                    this.$el.toggleClass('timeline-me-collapsed');
+                    break;
+                case 'show':
+                    this.$el.removeClass('timeline-me-collapsed');
+                    break;
+                case 'hide':
+                default:
+                    this.$el.addClass('timeline-me-collapsed');
+                    break;
+            }
+        },
+
+        /**
          * You can use the name convention functions started with underscore are
          * private. Really calls to functions starting with underscore are 
          * filtered, for example:
