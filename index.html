@@ -217,6 +217,11 @@
                     <td>Return item corresponding to the passed index</td>
                     <td></td>
                 </tr>
+                <tr>
+                    <td>collapse</td>
+                    <td>Show or hide content blocks: 'hide' | 'show' | 'toggle'</td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
 
@@ -436,6 +441,36 @@ $('#timeline-get-item-button').on('click', function() {
           To change label's picto size/background/border easily, use the SCSS file and change "$label-picto-*" files (demo will come - and if you have a better idea to handle that, I'd be glad to ear from you!).
         </p>  
 
+        <h3>collapse method</h3>
+<pre><code class="language-markup">&lt;div id="timeline-container-collapse" type="text"></div>
+&lt;button id="timeline-collapse-button" class="btn">toggle collapse&lt;/button>
+</code></pre>
+<pre><code class="language-javascript">$('#timeline-container-collapse').timelineMe({
+  items: [
+    {
+      type: 'milestone',
+      label: 'my label 1'
+    },
+    {
+      type: 'smallItem',
+      label: 'my label 2',
+      shortContent: 'short description 2'
+    },
+    {
+      type: 'bigItem',
+      label: 'my label 3',
+      shortContent: 'short description 3'
+    }
+  ]
+});
+$('#timeline-collapse-button').on('click', function() {
+  $('#timeline-container-collapse').timelineMe('collapse', 'toggle');
+});</code></pre>
+        <div style="padding: 10px; border-radius: 3px; background-color: #8DD8DD">
+          <div id="timeline-container-collapse"></div>
+          <button id="timeline-collapse-button" class="btn">toggle collapse</button>
+        </div>
+
         <h3>Horizontal mode</h3>
 <pre><code class="language-markup">&lt;div id="timeline-container-horizontal" type="text">&lt;/div></code></pre>
 <pre><code class="language-javascript">$('#timeline-container-horizontal').timelineMe({
@@ -642,6 +677,28 @@ $('#timeline-get-item-button').on('click', function() {
               shortContent: 'short description 3'
             }
           ]
+        });
+
+        $('#timeline-container-collapse').timelineMe({
+          items: [
+            {
+              type: 'milestone',
+              label: 'my label 1'
+            },
+            {
+              type: 'smallItem',
+              label: 'my label 2',
+              shortContent: 'short description 2'
+            },
+            {
+              type: 'bigItem',
+              label: 'my label 3',
+              shortContent: 'short description 3'
+            }
+          ]
+        });
+        $('#timeline-collapse-button').on('click', function() {
+          $('#timeline-container-collapse').timelineMe('collapse', 'toggle');
         });
 
         $('#timeline-container-horizontal').timelineMe({
