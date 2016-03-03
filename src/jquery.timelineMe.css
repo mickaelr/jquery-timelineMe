@@ -1,6 +1,7 @@
 /* ---------------- *\
    GLOBAL VARIABLES
 \* ---------------- */
+/* 1 / sqrt(3) */
 /* ------ *\
    MIXINS
 \* ------ */
@@ -78,6 +79,30 @@
   background-image: -o-linear-gradient(left, rgba(141, 216, 221, 0), #8dd8dd);
   background-image: linear-gradient(left, rgba(141, 216, 221, 0), #8dd8dd);
   filter: progid:DXImageTransform.Microsoft.gradient(start-colourStr='rgba(141, 216, 221, 0)', end-colourStr='#8dd8dd', gradientType='1');
+}
+
+.timeline-me-leftarrow,
+.timeline-me-rightarrow {
+  width: 0;
+  height: 0;
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  transform: translateY(-50%);
+  border-style: solid;
+}
+
+.timeline-me-leftarrow {
+  border-width: 11.54px 20px 11.54px 0;
+  border-color: transparent #ffffff transparent transparent;
+  left: 0;
+}
+
+.timeline-me-rightarrow {
+  /*border-width: 10px 0 10px 17.3px;*/
+  border-width: 11.54px 0 11.54px 20px;
+  border-color: transparent transparent transparent #ffffff;
+  right: 0;
 }
 
 /* -------------------- *\
