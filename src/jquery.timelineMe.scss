@@ -140,7 +140,7 @@ $scroll-arrow-prop: 0.577; /* 1 / sqrt(3) */
 .timeline-me-rightscroll {
 	width: $scroll-zone-width;
 	position: absolute;
-	z-index: 1;
+	z-index: 1001;
 	top: 0;
 	bottom: 0;
 }
@@ -157,26 +157,39 @@ $scroll-arrow-prop: 0.577; /* 1 / sqrt(3) */
 
 .timeline-me-leftarrow,
 .timeline-me-rightarrow {
-	width: 0;
-	height: 0;
 	position: absolute;
-	z-index: 2;
 	top: 50%;
-    transform: translateY(-50%);
-	border-style: solid;
+    z-index: 1002;
+    transform: translate(0, -50%);
+
+	&:after {
+		content: '';
+		width: 0;
+		height: 0;
+		position: absolute;
+		transform: translate(0, -50%);
+	    border-style: solid;
+	}
 }
 
 .timeline-me-leftarrow {
-	border-width: ($scroll-arrow-width * $scroll-arrow-prop) $scroll-arrow-width ($scroll-arrow-width * $scroll-arrow-prop) 0;
-	border-color: transparent $scroll-arrow-color transparent transparent;
 	left: 0;
+
+	&:after {
+		left: 0;
+		border-width: ($scroll-arrow-width * $scroll-arrow-prop) $scroll-arrow-width ($scroll-arrow-width * $scroll-arrow-prop) 0;
+		border-color: transparent $scroll-arrow-color transparent transparent;
+	}
 }
 
 .timeline-me-rightarrow {
-	/*border-width: 10px 0 10px 17.3px;*/
-	border-width: ($scroll-arrow-width * $scroll-arrow-prop) 0 ($scroll-arrow-width * $scroll-arrow-prop) $scroll-arrow-width;
-	border-color: transparent transparent transparent $scroll-arrow-color;
 	right: 0;
+
+	&:after {
+		right: 0;
+		border-width: ($scroll-arrow-width * $scroll-arrow-prop) 0 ($scroll-arrow-width * $scroll-arrow-prop) $scroll-arrow-width;
+		border-color: transparent transparent transparent $scroll-arrow-color;
+	}
 }
 
 

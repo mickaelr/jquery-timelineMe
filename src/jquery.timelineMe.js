@@ -83,8 +83,20 @@
             }
 
             if(this.settings.scrollArrows == true) {
-                var leftScroll = $('<span class="timeline-me-leftarrow">');
-                var rightScroll = $('<span class="timeline-me-rightarrow">');
+                var leftScroll;
+                var rightScroll;
+                if(this.settings.leftArrowElm == undefined) {
+                    leftScroll = $('<span class="timeline-me-leftarrow">');
+                } else {
+                    leftScroll = $('<span class="timeline-me-leftarrow-c">');
+                    leftScroll.html(this.settings.leftArrowElm);
+                }
+                if(this.settings.rightArrowElm == undefined) {
+                    rightScroll = $('<span class="timeline-me-rightarrow">');
+                } else {
+                    rightScroll = $('<span class="timeline-me-rightarrow-c">');
+                    rightScroll.html(this.settings.rightArrowElm);
+                }
                 timelineWrapper.before(leftScroll);
                 timelineWrapper.after(rightScroll);
 
@@ -717,14 +729,16 @@
      * Default options
      */
     $.fn[pluginName].defaults = {
-        orientation         : 'vertical',
-        items               : [],
-        scrollZones         : true,
-        scrollArrows        : true,
-        scrollBar           : true,
+        orientation             : 'vertical',
+        items                   : [],
         // horizontal-orientation specific options
-        contentDimensionValue  : '400px',
-        labelDimensionValue : '200px'
+        contentDimensionValue   : '400px',
+        labelDimensionValue     : '200px',
+        scrollBar               : true,
+        scrollZones             : false,
+        scrollArrows            : false,
+        leftArrowElm            : undefined,
+        rightArrowElm           : undefined
     };
  
 }(jQuery));
