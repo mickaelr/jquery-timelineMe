@@ -79,24 +79,28 @@
                 timelineWrapper.before(leftScroll);
                 timelineWrapper.after(rightScroll);
 
-                leftScroll.on('mouseenter', function() {
-                    var timer = setInterval(function() {
-                        timelineWrapper.scrollLeft(timelineWrapper.scrollLeft() - 5);
-                    }, 20);
-                    
-                    leftScroll.on('mouseleave', function() {
-                        clearInterval(timer);
-                    });
-                });
-                rightScroll.on('mouseenter', function() {
-                    var timer = setInterval(function() {
-                        timelineWrapper.scrollLeft(timelineWrapper.scrollLeft() + 5);
-                    }, 20);
-                    
-                    rightScroll.on('mouseleave', function() {
-                        clearInterval(timer);
-                    });
-                });
+                bindScrollTo(leftScroll, rightScroll, timelineWrapper);
+            }
+
+            if(this.settings.scrollArrows == true) {
+                var leftScroll;
+                var rightScroll;
+                if(this.settings.leftArrowElm == undefined) {
+                    leftScroll = $('<span class="timeline-me-leftarrow">');
+                } else {
+                    leftScroll = $('<span class="timeline-me-leftarrow-c">');
+                    leftScroll.html(this.settings.leftArrowElm);
+                }
+                if(this.settings.rightArrowElm == undefined) {
+                    rightScroll = $('<span class="timeline-me-rightarrow">');
+                } else {
+                    rightScroll = $('<span class="timeline-me-rightarrow-c">');
+                    rightScroll.html(this.settings.rightArrowElm);
+                }
+                timelineWrapper.before(leftScroll);
+                timelineWrapper.after(rightScroll);
+
+                bindScrollTo(leftScroll, rightScroll, timelineWrapper);
             }
 
             if(this.settings.items && this.settings.items.length > 0) {
@@ -558,6 +562,31 @@
      * These are real private methods. A plugin instance has access to them
      * @return {[type]}
      */
+
+    // Method that bind left & right scroll to any scrollable element
+    var bindScrollTo = function(leftScrollElm, rightScrollElm, elmToScroll, scrollSpeed) {
+        var scrollSpeed = scrollSpeed ? scrollSpeed : 5;
+
+        leftScrollElm.on('mouseenter', function() {
+            var timer = setInterval(function() {
+                elmToScroll.scrollLeft(elmToScroll.scrollLeft() - scrollSpeed);
+            }, 20);
+            
+            leftScrollElm.on('mouseleave', function() {
+                clearInterval(timer);
+            });
+        });
+        rightScrollElm.on('mouseenter', function() {
+            var timer = setInterval(function() {
+                elmToScroll.scrollLeft(elmToScroll.scrollLeft() + scrollSpeed);
+            }, 20);
+            
+            rightScrollElm.on('mouseleave', function() {
+                clearInterval(timer);
+            });
+        });
+    }
+
     // Method that return container width depending on children's width
     var resolveContainerWidth = function(element) {
         if(!element) return;
@@ -573,7 +602,7 @@
         element.width(totalWidth);
     };
     
-// Method that can return an element's height through a promise (so it'll be resolve only when the element will have a positive height)
+    // Method that can return an element's height through a promise (so it'll be resolve only when the element will have a positive height)
     var resolveElementHeight = function(element, args) {
         if(!args) 
             args = {};
@@ -700,13 +729,16 @@
      * Default options
      */
     $.fn[pluginName].defaults = {
-        orientation         : 'vertical',
-        items               : [],
-        scrollZones         : true,
-        scrollBar           : true,
+        orientation             : 'vertical',
+        items                   : [],
         // horizontal-orientation specific options
-        contentDimensionValue  : '400px',
-        labelDimensionValue : '200px'
+        contentDimensionValue   : '400px',
+        labelDimensionValue     : '200px',
+        scrollBar               : true,
+        scrollZones             : false,
+        scrollArrows            : false,
+        leftArrowElm            : undefined,
+        rightArrowElm           : undefined
     };
  
 }(jQuery));

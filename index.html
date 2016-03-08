@@ -472,57 +472,42 @@ $('#timeline-collapse-button').on('click', function() {
         </div>
 
         <h3>Horizontal mode</h3>
-<pre><code class="language-markup">&lt;div id="timeline-container-horizontal" type="text">&lt;/div></code></pre>
-<pre><code class="language-javascript">$('#timeline-container-horizontal').timelineMe({
+        <pre><code class="language-markup">&lt;div id="timeline-container-horizontal" type="text">&lt;/div></code></pre>
+
+        <h4>Default</h4>
+        <pre><code class="language-javascript">$('#timeline-container-horizontal').timelineMe({
   orientation: 'horizontal',
-  items: [
-    {
-      type: 'milestone',
-      label: 'my label 1'
-    },
-    {
-      type: 'smallItem',
-      label: 'my label 2',
-      shortContent: 'short description',
-      fullContent: 'big description &lt;br> with more lines &lt;br> than the short one. &lt;br> &lt;div style="text-align: center;">&lt;img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" />&lt;/div>',
-      showMore: 'show more',
-      showLess: 'show less'
-    },
-    {
-      type: 'smallItem',
-      label: 'my label 2bis',
-      shortContent: 'short description',
-      fullContent: 'big description &lt;br> with more lines &lt;br> than the short one. &lt;br> &lt;div style="text-align: center;">&lt;img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" />&lt;/div>',
-      showMore: 'show more',
-      showLess: 'show less',
-      forcePosition: 'top'
-    },
-    {
-      type: 'smallItem',
-      label: 'my label 2ter',
-      shortContent: 'short description',
-      fullContent: 'big description &lt;br> with more lines &lt;br> than the short one. &lt;br> &lt;div style="text-align: center;">&lt;img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" />&lt;/div>',
-      showMore: 'show more',
-      showLess: 'show less',
-      forcePosition: 'top'
-    },
-    {
-      type: 'bigItem',
-      label: '&lt;span style="background-color: #8DD8DD;">my label 3&lt;/span>',
-      shortContent: 'short description',
-      fullContent: 'big description &lt;br> with more lines &lt;br> than the short one. &lt;br> &lt;div style="text-align: center;">&lt;img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" />&lt;/div>',
-      showMore: 'show more',
-      showLess: 'show less'
-    }
-  ]
+  items: [...]
 });</code></pre>
         <div style="padding: 10px; border-radius: 3px; background-color: #8DD8DD">
           <div id="timeline-container-horizontal"></div>
         </div>
+
+        <h4>Scroll zones</h4>
+        <pre><code class="language-javascript">$('#timeline-container-scrollzones').timelineMe({
+  orientation: 'horizontal',
+  scrollZones: true,
+  scrollBar: false,
+  items: [...]
+});</code></pre>
+        <div style="padding: 10px; border-radius: 3px; background-color: #8DD8DD">
+          <div id="timeline-container-scrollzones"></div>
+        </div>
+
+        <h4>Scroll arrows</h4>
+        <pre><code class="language-javascript">$('#timeline-container-scrollarrows').timelineMe({
+  orientation: 'horizontal',
+  scrollArrows: true,
+  scrollBar: false,
+  items: [...]
+});</code></pre>
+        <div style="padding: 10px; border-radius: 3px; background-color: #8DD8DD">
+          <div id="timeline-container-scrollarrows"></div>
+        </div>
+
         <p>
           WORK IN PROGRESS
           - flipping item (bigItem) isn't working well in IE.
-          - implement arrows and/or sliding zones to remove the native scroll.
           - describe sass variables that allow timeline customization.
           - add same customization as in sass through js.
         </p>
@@ -703,7 +688,98 @@ $('#timeline-collapse-button').on('click', function() {
 
         $('#timeline-container-horizontal').timelineMe({
           orientation: 'horizontal',
-          //fixDimension: 'height',
+          items: [
+            {
+              type: 'milestone',
+              label: 'my label 1'
+            },
+            {
+              type: 'smallItem',
+              label: 'my label 2',
+              shortContent: 'short description',
+              fullContent: 'big description <br> with more lines <br> than the short one. <br> <div style="text-align: center;"><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" /></div>',
+              showMore: 'show more',
+              showLess: 'show less'
+            },
+            {
+              type: 'smallItem',
+              label: 'my label 2bis',
+              shortContent: 'short description',
+              fullContent: 'big description <br> with more lines <br> than the short one. <br> <div style="text-align: center;"><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" /></div>',
+              showMore: 'show more',
+              showLess: 'show less',
+              forcePosition: 'top'
+            },
+            {
+              type: 'smallItem',
+              label: 'my label 2ter',
+              shortContent: 'short description',
+              fullContent: 'big description <br> with more lines <br> than the short one. <br> <div style="text-align: center;"><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" /></div>',
+              showMore: 'show more',
+              showLess: 'show less',
+              forcePosition: 'top'
+            },
+            {
+              type: 'bigItem',
+              label: '<span style="background-color: #8DD8DD;">my label 3</span>',
+              shortContent: 'short description',
+              fullContent: 'big description <br> with more lines <br> than the short one. <br> <div style="text-align: center;"><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" /></div>',
+              showMore: 'show more',
+              showLess: 'show less'
+            }
+          ]
+        });
+
+        $('#timeline-container-scrollzones').timelineMe({
+          orientation: 'horizontal',
+          scrollZones: true,
+          scrollBar: false,
+          items: [
+            {
+              type: 'milestone',
+              label: 'my label 1'
+            },
+            {
+              type: 'smallItem',
+              label: 'my label 2',
+              shortContent: 'short description',
+              fullContent: 'big description <br> with more lines <br> than the short one. <br> <div style="text-align: center;"><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" /></div>',
+              showMore: 'show more',
+              showLess: 'show less'
+            },
+            {
+              type: 'smallItem',
+              label: 'my label 2bis',
+              shortContent: 'short description',
+              fullContent: 'big description <br> with more lines <br> than the short one. <br> <div style="text-align: center;"><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" /></div>',
+              showMore: 'show more',
+              showLess: 'show less',
+              forcePosition: 'top'
+            },
+            {
+              type: 'smallItem',
+              label: 'my label 2ter',
+              shortContent: 'short description',
+              fullContent: 'big description <br> with more lines <br> than the short one. <br> <div style="text-align: center;"><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" /></div>',
+              showMore: 'show more',
+              showLess: 'show less',
+              forcePosition: 'top'
+            },
+            {
+              type: 'bigItem',
+              label: '<span style="background-color: #8DD8DD;">my label 3</span>',
+              shortContent: 'short description',
+              fullContent: 'big description <br> with more lines <br> than the short one. <br> <div style="text-align: center;"><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" /></div>',
+              showMore: 'show more',
+              showLess: 'show less'
+            }
+          ]
+        });
+
+        $('#timeline-container-scrollarrows').timelineMe({
+          orientation: 'horizontal',
+          scrollArrows: true,
+          scrollBar: false,
           items: [
             {
               type: 'milestone',
