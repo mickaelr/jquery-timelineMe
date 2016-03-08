@@ -20,6 +20,10 @@ $timeline-thickness: 4px;
 $scroll-zone-width: 50px;
 $scroll-zone-color: #8DD8DD;
 
+$scroll-arrow-color: #ffffff;
+$scroll-arrow-width: 20px;
+$scroll-arrow-prop: 0.577; /* 1 / sqrt(3) */
+
 
 /* ------ *\
    MIXINS
@@ -136,7 +140,7 @@ $scroll-zone-color: #8DD8DD;
 .timeline-me-rightscroll {
 	width: $scroll-zone-width;
 	position: absolute;
-	z-index: 1;
+	z-index: 1001;
 	top: 0;
 	bottom: 0;
 }
@@ -149,6 +153,43 @@ $scroll-zone-color: #8DD8DD;
 .timeline-me-rightscroll { 
 	right: 0;
 	@include bg-gradient-left-to-right(rgba($scroll-zone-color, 0), rgba($scroll-zone-color, 1));
+}
+
+.timeline-me-leftarrow,
+.timeline-me-rightarrow {
+	position: absolute;
+	top: 50%;
+    z-index: 1002;
+    transform: translate(0, -50%);
+
+	&:after {
+		content: '';
+		width: 0;
+		height: 0;
+		position: absolute;
+		transform: translate(0, -50%);
+	    border-style: solid;
+	}
+}
+
+.timeline-me-leftarrow {
+	left: 0;
+
+	&:after {
+		left: 0;
+		border-width: ($scroll-arrow-width * $scroll-arrow-prop) $scroll-arrow-width ($scroll-arrow-width * $scroll-arrow-prop) 0;
+		border-color: transparent $scroll-arrow-color transparent transparent;
+	}
+}
+
+.timeline-me-rightarrow {
+	right: 0;
+
+	&:after {
+		right: 0;
+		border-width: ($scroll-arrow-width * $scroll-arrow-prop) 0 ($scroll-arrow-width * $scroll-arrow-prop) $scroll-arrow-width;
+		border-color: transparent transparent transparent $scroll-arrow-color;
+	}
 }
 
 

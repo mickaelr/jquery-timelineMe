@@ -1,6 +1,7 @@
 /* ---------------- *\
    GLOBAL VARIABLES
 \* ---------------- */
+/* 1 / sqrt(3) */
 /* ------ *\
    MIXINS
 \* ------ */
@@ -53,7 +54,7 @@
 .timeline-me-rightscroll {
   width: 50px;
   position: absolute;
-  z-index: 1;
+  z-index: 1001;
   top: 0;
   bottom: 0;
 }
@@ -78,6 +79,41 @@
   background-image: -o-linear-gradient(left, rgba(141, 216, 221, 0), #8dd8dd);
   background-image: linear-gradient(left, rgba(141, 216, 221, 0), #8dd8dd);
   filter: progid:DXImageTransform.Microsoft.gradient(start-colourStr='rgba(141, 216, 221, 0)', end-colourStr='#8dd8dd', gradientType='1');
+}
+
+.timeline-me-leftarrow,
+.timeline-me-rightarrow {
+  position: absolute;
+  top: 50%;
+  z-index: 1002;
+  transform: translate(0, -50%);
+}
+.timeline-me-leftarrow:after,
+.timeline-me-rightarrow:after {
+  content: '';
+  width: 0;
+  height: 0;
+  position: absolute;
+  transform: translate(0, -50%);
+  border-style: solid;
+}
+
+.timeline-me-leftarrow {
+  left: 0;
+}
+.timeline-me-leftarrow:after {
+  left: 0;
+  border-width: 11.54px 20px 11.54px 0;
+  border-color: transparent #ffffff transparent transparent;
+}
+
+.timeline-me-rightarrow {
+  right: 0;
+}
+.timeline-me-rightarrow:after {
+  right: 0;
+  border-width: 11.54px 0 11.54px 20px;
+  border-color: transparent transparent transparent #ffffff;
 }
 
 /* -------------------- *\
