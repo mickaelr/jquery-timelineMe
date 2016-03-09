@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------
  *JAVASCRIPT "timelineMe.js"
- *Version:    0.1.4 - 2015
+ *Version:    0.1.6 - 2015
  *author:     Mickaël Roy
  *website:    http://www.mickaelroy.com
  *Licensed MIT 
@@ -106,6 +106,7 @@
             if(this.settings.items && this.settings.items.length > 0) {
                 this.content = this.settings.items;
 
+                this._sortItemsPosition(this.content);
                 this._fillItemsPosition(this.content);
 
                 for(var i = 0; i < this.content.length; i++) {
@@ -220,6 +221,26 @@
                 } 
             }
             return items;
+        },
+
+        // Method that sort items, depending on their relativePosition
+        _sortItemsPosition: function(items) {
+            if(items && items.length > 0) {
+                var hasRelativePositioning = true;
+                for(var i = 0; i < items.length; i++) {
+                    if(isNaN(items[i].relativePosition))
+                        hasRelativePositioning = false;
+                }
+
+                if(hasRelativePositioning) {
+                    items.sort(function(a, b) {
+                        return a.relativePosition - b.relativePosition;
+                    });
+                }
+
+                return items;
+            } else
+                return;
         },
 
         // Method that fill 'position' field, depending on item's forcePosition option, on item's type and on position of the previous item
