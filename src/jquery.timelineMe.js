@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------
  *JAVASCRIPT "timelineMe.js"
- *Version:    0.1.4 - 2015
+ *Version:    0.1.7 - 2015
  *author:     Mickaël Roy
  *website:    http://www.mickaelroy.com
  *Licensed MIT 
@@ -106,6 +106,11 @@
             if(this.settings.items && this.settings.items.length > 0) {
                 this.content = this.settings.items;
 
+                if(hasNumberProperty(this.content, 'relativePosition')) {
+                    this._sortItemsPosition(this.content);
+                    this._calcDiffWithNextItem(this.content);
+                }
+                this._sortItemsPosition(this.content);
                 this._fillItemsPosition(this.content);
 
                 for(var i = 0; i < this.content.length; i++) {
@@ -113,6 +118,14 @@
                     if(this.settings.orientation == 'horizontal') {
                         resolveContainerWidth(track);
                     }
+                }
+
+                // once items' DOM elements have been built, we can reposition them
+                if(hasNumberProperty(this.content, 'relativePosition')) {
+                    this._calcRelativePosRatio(this.content);
+                    this.maxRelativeRatio = getMaxPropertyValue(this.content, 'relativePosRatio');
+                    this._calcRelativeHeight(this.content, this.maxRelativeRatio);
+                    this._addMissingRelativeHeight(this.content);
                 }
             }
         },
@@ -220,6 +233,64 @@
                 } 
             }
             return items;
+        },
+
+        // Method that sort items, depending on their relativePosition
+        _sortItemsPosition: function(items) {
+            var hasRelativePositioning = hasNumberProperty(items, 'relativePosition');
+
+            if(hasRelativePositioning) {
+                items.sort(function(a, b) {
+                    return a.relativePosition - b.relativePosition;
+                });
+            }
+        },
+
+        // Method that calculates relativePosition difference with next item
+        _calcDiffWithNextItem: function(items) {
+            var hasRelativePositioning = hasNumberProperty(items, 'relativePosition');
+
+            for(var i = 0; i < items.length; i++) {
+                if(i == items.length - 1)
+                    items[i].diffWithNextRelativePos = undefined;
+                else
+                    items[i].diffWithNextRelativePos = items[i + 1].relativePosition - items[i].relativePosition;
+            }
+        },
+
+        // Method that calculates ratio: item's height / relative pos diff with next item
+        _calcRelativePosRatio: function(items) {
+            for(var i = 0; i < items.length; i++) {
+                var height = items[i].element[0].getBoundingClientRect().height;
+                var relPosDiff = items[i].diffWithNextRelativePos;
+                var ratio = 0;
+                if(!isNaN(height) && !isNaN(relPosDiff))
+                    ratio = height / relPosDiff;
+
+                items[i].relativePosRatio = ratio;
+            }
+        },
+
+        // Method that calculates items' "virtual" height depending on relative positioning
+        _calcRelativeHeight: function(items, heightRatio) {
+            if(!heightRatio) return;
+
+            for(var i = 0; i < items.length; i++) {
+                items[i].relativeHeight = heightRatio * (items[i].diffWithNextRelativePos ? items[i].diffWithNextRelativePos : 0);
+            }
+        },
+
+        // Method that calculates items' "virtual" height depending on relative positioning
+        _addMissingRelativeHeight: function(items) {
+            for(var i = 0; i < items.length; i++) {
+                var heightToAdd = 0;
+                if(!isNaN(items[i].relativeHeight)) {
+                    var height = items[i].element[0].getBoundingClientRect().height;
+                    heightToAdd = items[i].relativeHeight - height;
+                    var marginBottom = parseInt(items[i].element.css('margin-bottom')) + (heightToAdd > 0 ? heightToAdd : 0);
+                    items[i].element.css('margin-bottom', marginBottom + 'px');
+                }
+            }
         },
 
         // Method that fill 'position' field, depending on item's forcePosition option, on item's type and on position of the previous item
@@ -685,6 +756,32 @@
                 $(e.target).trigger(heightEvent);
             });
         });
+    }
+
+    // Method checking if all items of an array have a specific number property
+    var hasNumberProperty = function(items, propertyName) {
+        if(!items) return false;
+
+        var hasProperty = true;
+        for(var i = 0; i < items.length; i++) {
+            if(isNaN(items[i][propertyName]))
+                hasProperty = false;
+        }
+        return hasProperty;
+    }
+
+    // Method returning max value of specific array's property
+    var getMaxPropertyValue = function(items, propertyName) {
+        if(!items) return false;
+
+        var maxProperty;
+        for(var i = 0; i < items.length; i++) {
+            if(maxProperty == undefined)
+                maxProperty = items[i][propertyName];
+            else if(items[i][propertyName] > maxProperty)
+                maxProperty = items[i][propertyName];
+        }
+        return maxProperty;
     }
 
     $.fn[pluginName] = function(options) {
