@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------
  *JAVASCRIPT "timelineMe.js"
- *Version:    0.1.7 - 2015
+ *Version:    0.1.7 - 2016
  *author:     Mickaël Roy
  *website:    http://www.mickaelroy.com
  *Licensed MIT 

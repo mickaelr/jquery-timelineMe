@@ -4,6 +4,12 @@ The aim of this plugin is to easily build a timeline display for your data.
 
 ## Installation
 
+**npm:**
+```
+npm install jquery-timelineme
+```
+
+**classic:**
 - add jQuery to your project
 - add timelineMe css & js
 
