@@ -568,12 +568,96 @@ $('#timeline-collapse-button').on('click', function() {
           <div id="timeline-container-scrollarrows"></div>
         </div>
 
-        <p>
-          WORK IN PROGRESS
-          - flipping item (bigItem) isn't working well in IE.
-          - describe sass variables that allow timeline customization.
-          - add same customization as in sass through js.
-        </p>
+      <h2>SASS variables</h2>
+
+      <table class="table table-bordered table-striped">
+          <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Default</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>$item-bg-color</td>
+                  <td>items background color</td>
+                  <td>#ffffff</td>
+              </tr>
+              <tr>
+                  <td>$timeline-thickness</td>
+                  <td>timeline's line thickness</td>
+                  <td>4px</td>
+              </tr>
+              <tr>
+                  <td>$timeline-color</td>
+                  <td>timeline's line color</td>
+                  <td>#555555</td>
+              </tr>
+              <tr>
+                  <td>$horizontal-item-sepa</td>
+                  <td>items separation for horizontal timeline</td>
+                  <td>10px</td>
+              </tr>
+              <tr>
+                  <td>$vertical-item-sepa</td>
+                  <td>items separation for vertical timeline</td>
+                  <td>$horizontal-item-sepa / 2</td>
+              </tr>
+              <tr>
+                  <td>$label-bg-color</td>
+                  <td>items' label's mark background color</td>
+                  <td>$item-bg-color</td>
+              </tr>
+              <tr>
+                  <td>$label-picto-size</td>
+                  <td>items' label's mark size</td>
+                  <td>$horizontal-item-sepa / 2</td>
+              </tr>
+              <tr>
+                  <td>$label-picto-border</td>
+                  <td>items' label's mark border width</td>
+                  <td>3px</td>
+              </tr>
+              <tr>
+                  <td>$label-picto-border-color</td>
+                  <td>items' label's mark border color</td>
+                  <td>$timeline-color</td>
+              </tr>
+              <tr>
+                  <td>$label-picto-sepa</td>
+                  <td>separation between item's label's mark and text</td>
+                  <td>3px</td>
+              </tr>
+              <tr>
+                  <td>$scroll-zone-width</td>
+                  <td>scroll zones width for horizontal timeline</td>
+                  <td>50px</td>
+              </tr>
+              <tr>
+                  <td>$scroll-zone-color</td>
+                  <td>scroll zones color (will be a gradient to transaprent) for horizontal timeline</td>
+                  <td>#8DD8DD</td>
+              </tr>
+              <tr>
+                  <td>$scroll-arrow-width</td>
+                  <td>scroll arrows width for horizontal timeline</td>
+                  <td>20px</td>
+              </tr>
+              <tr>
+                  <td>$scroll-arrow-color</td>
+                  <td>scroll arrows color for horizontal timeline</td>
+                  <td>#ffffff</td>
+              </tr>
+          </tbody>
+      </table>
+
+      <p>
+        WORK IN PROGRESS:<br>
+        - flipping item (bigItem) isn't working well in IE.<br>
+        - add same customization in js that the one existing in sass.<br>
+        - js unit testing
+      </p>
       <!-- END -->
 
       <footer class="site-footer">
