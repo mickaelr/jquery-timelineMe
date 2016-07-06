@@ -359,10 +359,10 @@
   ]
 });</code></pre>
 <pre><code class="language-css">.custom-show-btn {
-  position: absolute; 
-  right: 20px; 
-  bottom: -12px; 
-  background-color: #359BCE; 
+  position: absolute;
+  right: 20px;
+  bottom: -12px;
+  background-color: #359BCE;
   border-radius: 50%;
   color: #FFFFFF;
   height: 24px;
@@ -371,10 +371,10 @@
         <div style="padding: 10px; border-radius: 3px; background-color: #8DD8DD">
           <style type="text/css">
             .custom-show-btn {
-              position: absolute; 
-              right: 20px; 
-              bottom: -12px; 
-              background-color: #359BCE; 
+              position: absolute;
+              right: 20px;
+              bottom: -12px;
+              background-color: #359BCE;
               border-radius: 50%;
               color: #FFFFFF;
               height: 24px;
@@ -424,7 +424,7 @@ $('#timeline-get-item-button').on('click', function() {
             {
               type: 'milestone',
               label: 'my label 1',
-              picto: '&lt;i class="material-icons">event&lt;/i>' 
+              picto: '&lt;i class="material-icons">event&lt;/i>'
             },
             {
               type: 'smallItem',
@@ -445,7 +445,7 @@ $('#timeline-get-item-button').on('click', function() {
         </div>
         <p>
           To change label's picto size/background/border easily, use the SCSS file and change "$label-picto-*" files (demo will come - and if you have a better idea to handle that, I'd be glad to ear from you!).
-        </p>  
+        </p>
 
         <h3>collapse method</h3>
 <pre><code class="language-markup">&lt;div id="timeline-container-collapse" type="text"></div>
@@ -484,7 +484,7 @@ $('#timeline-collapse-button').on('click', function() {
             {
               type: 'milestone',
               label: 'my label 1',
-              relativePosition: 15 
+              relativePosition: 15
             },
             {
               type: 'smallItem',
@@ -514,7 +514,7 @@ $('#timeline-collapse-button').on('click', function() {
             {
               type: 'milestone',
               label: relPosDate1.toDateString(),
-              relativePosition: relPosDate1.getTime() 
+              relativePosition: relPosDate1.getTime()
             },
             {
               type: 'smallItem',
@@ -583,7 +583,7 @@ $('#timeline-collapse-button').on('click', function() {
       </footer>
 
     </section>
-  
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="src/jquery.timelineMe.js"></script>
     <script type="text/javascript" src="prism/prism.js"></script>
@@ -710,7 +710,7 @@ $('#timeline-collapse-button').on('click', function() {
             {
               type: 'milestone',
               label: 'my label 1',
-              picto: '<i class="material-icons">event</i>' 
+              picto: '<i class="material-icons">event</i>'
             },
             {
               type: 'smallItem',
@@ -767,6 +767,12 @@ $('#timeline-collapse-button').on('click', function() {
               label: 'my label 3',
               relativePosition: 20,
               shortContent: 'short description 3'
+            },
+            {
+              type: 'smallItem',
+              label: 'my label 4',
+              relativePosition: 100,
+              shortContent: 'short description 4'
             }
           ]
         });
@@ -779,7 +785,7 @@ $('#timeline-collapse-button').on('click', function() {
             {
               type: 'milestone',
               label: relPosDate1.toDateString(),
-              relativePosition: relPosDate1.getTime() 
+              relativePosition: relPosDate1.getTime()
             },
             {
               type: 'smallItem',

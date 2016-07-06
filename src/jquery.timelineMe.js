@@ -3,13 +3,13 @@
  *Version:    0.1.7 - 2015
  *author:     Mickaël Roy
  *website:    http://www.mickaelroy.com
- *Licensed MIT 
+ *Licensed MIT
 -----------------------------------------------------------------------*/
 
 (function ($){
- 
+
     var pluginName = 'timelineMe';
- 
+
     /**
      * The plugin constructor
      * @param {DOM Element} element The DOM element where plugin is applied
@@ -28,31 +28,31 @@
         // Set the instance options extending the plugin defaults and
         // the options passed by the user
         this.settings = $.extend({}, $.fn[pluginName].defaults, options);
-            
+
         // Initialize the plugin instance
         this.init();
     }
-    
+
     /**
      * Set up your Plugin protptype with desired methods.
      * It is a good practice to implement 'init' and 'destroy' methods.
      */
     TimelineMe.prototype = {
-        
+
         /**
          * Initialize the plugin instance.
-         * Set any other attribtes, store any other element reference, register 
+         * Set any other attribtes, store any other element reference, register
          * listeners, etc
          *
          * When bind listerners remember to name tag it with your plugin's name.
          * Elements can have more than one listener attached to the same event
          * so you need to tag it to unbind the appropriate listener on destroy:
-         * 
+         *
          * @example
          * this.$someSubElement.on('click.' + pluginName, function() {
          *      // Do something
          * });
-         *         
+         *
          */
         init: function() {
             this.$el.addClass('timeline-me-container');
@@ -108,6 +108,7 @@
 
                 if(hasNumberProperty(this.content, 'relativePosition')) {
                     this._sortItemsPosition(this.content);
+                    this._mergeSamePositionItems(this.content);
                     this._calcDiffWithNextItem(this.content);
                 }
                 this._sortItemsPosition(this.content);
@@ -149,10 +150,10 @@
         },
 
 
-        // To call a call a pseudo private method: 
+        // To call a call a pseudo private method:
         //this._pseudoPrivateMethod();
 
-        // To call a real private method from those public methods, you need to use 'call' or 'apply': 
+        // To call a real private method from those public methods, you need to use 'call' or 'apply':
         //privateMethod.call(this);
 
         /**
@@ -160,7 +161,7 @@
          *
          * @example
          * $('#element').pluginName('getItem', index);
-         * 
+         *
          * @return {item} corresponding to the specified index
          */
         getItem: function(index) {
@@ -172,7 +173,7 @@
          *
          * @example
          * $('#element').pluginName('getItemIndex', item);
-         * 
+         *
          * @return {index} of the corresponding item
          */
         getItemIndex: function(item) {
@@ -184,7 +185,7 @@
          *
          * @example
          * $('#element').pluginName('collapse', 'show');
-         * 
+         *
          * @return element
          */
         collapse: function(method) {
@@ -204,9 +205,9 @@
 
         /**
          * You can use the name convention functions started with underscore are
-         * private. Really calls to functions starting with underscore are 
+         * private. Really calls to functions starting with underscore are
          * filtered, for example:
-         * 
+         *
          *  @example
          *  $('#element').jqueryPlugin('_pseudoPrivateMethod');  // Will not work
          */
@@ -230,7 +231,7 @@
                 if(!items[j].id) {
                     lastId++;
                     items[j].id = lastId;
-                } 
+                }
             }
             return items;
         },
@@ -243,6 +244,21 @@
                 items.sort(function(a, b) {
                     return a.relativePosition - b.relativePosition;
                 });
+            }
+        },
+
+        // Method that merges items with same relativePosition
+        // !!! When 2 (or more) items have the same relativePosition, only the first item's type & picto will be taken into account !!!
+        _mergeSamePositionItems: function(items) {
+            var n = items.length - 1;
+            for(var i = 0; i < n; i++) {
+                if(items[i].relativePosition == items[i + 1].relativePosition) {
+                    items[i].label = items[i].label + '<span class="timeline-me-same-position">' + items[i + 1].label + '</span>';
+                    items[i].shortContent = items[i].shortContent + '<span class="timeline-me-same-position">' + items[i + 1].shortContent + '</span>';
+                    items[i].fullContent = items[i].fullContent + '<span class="timeline-me-same-position">' + items[i + 1].fullContent + '</span>';
+                    items.splice(i + 1, 1);
+                    n--;
+                }
             }
         },
 
@@ -394,13 +410,13 @@
             item.element = itemElm;
             this._refreshItemPosition(item);
 
-            item.element.on('timelineMe.itemHeightChanged', function(event) { 
+            item.element.on('timelineMe.itemHeightChanged', function(event) {
                 // Do some stuff
             });
-            item.element.on('timelineMe.smallItem.displayfull', function(event) { 
+            item.element.on('timelineMe.smallItem.displayfull', function(event) {
                 // Do some stuff
             });
-            item.element.on('timelineMe.bigItem.flipped', function(event) { 
+            item.element.on('timelineMe.bigItem.flipped', function(event) {
                 var container = item.element.find('.timeline-me-content-container');
                 if(item.element.hasClass('timeline-me-flipped')) {
                     container.height(item.fullContentElement.outerHeight());
@@ -423,7 +439,7 @@
 
         // Method that build html element for corresponding item
         _buildSmallItemElement: function(item) {
-            var smallItemElm = $('<div class="timeline-me-item timeline-me-smallitem">');  
+            var smallItemElm = $('<div class="timeline-me-item timeline-me-smallitem">');
             return smallItemElm;
         },
 
@@ -470,7 +486,7 @@
                 var fullContentElm = $('<div class="timeline-me-fullcontent">');
                 contentElm.append(fullContentElm);
                 item.fullContentElement = fullContentElm;
-            
+
                 var showMoreElm = $('<div class="timeline-me-showmore">');
                 item.showMoreElement = showMoreElm;
 
@@ -485,7 +501,7 @@
 
             item.itemWrapperElement = itemWrapper;
             item.labelWrapperElement = labelWrapper;
-            item.contentWrapperElement = contentWrapper; 
+            item.contentWrapperElement = contentWrapper;
         },
 
         // Method that fills the item's element with content passed through the options
@@ -581,7 +597,7 @@
                 item.showLessElement.addClass(this.settings.showLessClass);
             }
 
-            // if the timeline is in horizontal mode, we create a cloned version of the contentWrapper element, that will be hidden, 
+            // if the timeline is in horizontal mode, we create a cloned version of the contentWrapper element, that will be hidden,
             // in order to place it correctly above/below the timeline (will simulate a margin-bottom/margin-top equals to the height of the contentWrapper)
             if(item.type == 'smallItem' && this.settings.orientation == 'horizontal') {
                 if(item.contentWrapperClone)
@@ -642,7 +658,7 @@
             var timer = setInterval(function() {
                 elmToScroll.scrollLeft(elmToScroll.scrollLeft() - scrollSpeed);
             }, 20);
-            
+
             leftScrollElm.on('mouseleave', function() {
                 clearInterval(timer);
             });
@@ -651,7 +667,7 @@
             var timer = setInterval(function() {
                 elmToScroll.scrollLeft(elmToScroll.scrollLeft() + scrollSpeed);
             }, 20);
-            
+
             rightScrollElm.on('mouseleave', function() {
                 clearInterval(timer);
             });
@@ -672,10 +688,10 @@
 
         element.width(totalWidth);
     };
-    
+
     // Method that can return an element's height through a promise (so it'll be resolve only when the element will have a positive height)
     var resolveElementHeight = function(element, args) {
-        if(!args) 
+        if(!args)
             args = {};
         var refreshDelay = args.refreshDelay ? args.refreshDelay : 500;
         var ret = new $.Deferred();
@@ -692,13 +708,13 @@
                 });
             }, refreshDelay);
         }
-        
+
         return ret;
     }
 
     // Method that can return an element's height through an event (event will be fired only when the element will have a positive height)
     var eventElementHeight = function(element, args) {
-        if(!args) 
+        if(!args)
             args = {};
         var eventName = args.eventName ? args.eventName : 'onElementHeight';
         var refreshDelay = args.refreshDelay ? args.refreshDelay : 500;
@@ -718,7 +734,7 @@
 
     // Method that can return an element's height when it's changing
     var resolveElementHeightChange = function(element, args) {
-        if(!args) 
+        if(!args)
             args = {};
         var refreshDelay = args.refreshDelay ? args.refreshDelay : 500;
         var previousHeight = args.previousHeight;
@@ -739,7 +755,7 @@
                 });
             }, refreshDelay);
         }
-        
+
         return ret;
     }
 
@@ -796,7 +812,7 @@
                 }
             });
         } else if (typeof options === 'string' && options[0] !== '_' && options !== 'init') {
-            // Call a public plugin method (not starting with an underscore) for each 
+            // Call a public plugin method (not starting with an underscore) for each
             // selected element.
             if ($.inArray(options, $.fn[pluginName].getters) !== -1) {
                 // If the user does not pass any arguments and the method allows to
@@ -815,7 +831,7 @@
             }
         }
     };
-    
+
     /**
      * Names of the pluguin methods that can act as a getter method.
      * @type {Array}
@@ -837,6 +853,5 @@
         leftArrowElm            : undefined,
         rightArrowElm           : undefined
     };
- 
-}(jQuery));
 
+}(jQuery));
