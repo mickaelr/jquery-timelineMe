@@ -10,6 +10,7 @@
 \* -------------- */
 .timeline-me-container {
   position: relative;
+  color: #666666;
 }
 .timeline-me-container.no-scroll .timeline-me-wrapper {
   overflow: hidden;
@@ -153,6 +154,12 @@
 .timeline-me-item:first-child {
   position: relative;
   margin: 20px 0px;
+}
+
+.timeline-me-label .timeline-me-same-position {
+  border-left: 2px solid #666666;
+  margin-left: 10px;
+  padding-left: 10px;
 }
 
 .timeline-me-content {
@@ -422,6 +429,13 @@
   min-height: 18px;
   min-width: 18px;
 }
+.timeline-me-smallitem .timeline-me-fullcontent .timeline-me-same-position,
+.timeline-me-smallitem .timeline-me-shortcontent .timeline-me-same-position {
+  display: block;
+  border-top: 2px solid #666666;
+  margin-top: 10px;
+  padding-top: 10px;
+}
 .timeline-me-smallitem .timeline-me-fullcontent:before,
 .timeline-me-smallitem .timeline-me-shortcontent:before {
   content: '';
@@ -485,6 +499,13 @@
 .timeline-me-bigitem .timeline-me-fullcontent,
 .timeline-me-bigitem .timeline-me-shortcontent {
   padding: 20px;
+}
+.timeline-me-bigitem .timeline-me-fullcontent .timeline-me-same-position,
+.timeline-me-bigitem .timeline-me-shortcontent .timeline-me-same-position {
+  display: block;
+  border-top: 2px solid #666666;
+  margin-top: 10px;
+  padding-top: 10px;
 }
 .timeline-me-bigitem .timeline-me-flipped .timeline-me-showmore, .timeline-me-bigitem.timeline-me-flipped .timeline-me-showmore {
   display: none;
