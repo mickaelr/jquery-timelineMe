@@ -108,6 +108,7 @@
 
                 if(hasNumberProperty(this.content, 'relativePosition')) {
                     this._sortItemsPosition(this.content);
+                    this._mergeSamePositionItems(this.content);
                     this._calcDiffWithNextItem(this.content);
                 }
                 this._sortItemsPosition(this.content);
@@ -243,6 +244,21 @@
                 items.sort(function(a, b) {
                     return a.relativePosition - b.relativePosition;
                 });
+            }
+        },
+
+        // Method that merges items with same relativePosition
+        // !!! When 2 (or more) items have the same relativePosition, only the first item's type & picto will be taken into account !!!
+        _mergeSamePositionItems: function(items) {
+            var n = items.length - 1;
+            for(var i = 0; i < n; i++) {
+                if(items[i].relativePosition == items[i + 1].relativePosition) {
+                    items[i].label = items[i].label + '<span class="timeline-me-same-position">' + items[i + 1].label + '</span>';
+                    items[i].shortContent = items[i].shortContent + '<span class="timeline-me-same-position">' + items[i + 1].shortContent + '</span>';
+                    items[i].fullContent = items[i].fullContent + '<span class="timeline-me-same-position">' + items[i + 1].fullContent + '</span>';
+                    items.splice(i + 1, 1);
+                    n--;
+                }
             }
         },
 
