@@ -598,6 +598,16 @@ $('#timeline-collapse-button').on('click', function() {
           <div id="timeline-container-scrollarrows"></div>
         </div>
 
+        <h4>Dynamic load</h4>
+        <pre><code class="language-javascript">$('#timeline-container-dynamic-load').timelineMe({
+  items: [...]
+});
+// Do stuff
+$('#timeline-container-dynamic-load').timelineMe('load', [{type: 'milestone', label: 'dynamically added milestone'}]);</code></pre>
+        <div style="padding: 10px; border-radius: 3px; background-color: #8DD8DD">
+          <div id="timeline-container-dynamic-load"></div>
+        </div>
+
       <h2>SASS variables</h2>
 
       <table class="table table-bordered table-striped">
@@ -1051,6 +1061,32 @@ $('#timeline-collapse-button').on('click', function() {
             }
           ]
         });
+
+        $('#timeline-container-dynamic-load').timelineMe({
+          items: [
+            {
+              type: 'milestone',
+              label: 'my label 1'
+            },
+            {
+              type: 'smallItem',
+              label: 'my label 2',
+              shortContent: 'short description',
+              fullContent: 'big description <br> with more lines <br> than the short one. <br> <div style="text-align: center;"><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" /></div>',
+              showMore: 'show more',
+              showLess: 'show less'
+            },
+            {
+              type: 'bigItem',
+              label: '<span style="background-color: #8DD8DD;">my label 3</span>',
+              shortContent: 'short description',
+              fullContent: 'big description <br> with more lines <br> than the short one. <br> <div style="text-align: center;"><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" style="width: 50%;" /></div>',
+              showMore: 'show more',
+              showLess: 'show less'
+            }
+          ]
+        });
+        $('#timeline-container-dynamic-load').timelineMe('load', [{type: 'milestone', label: 'dynamically added milestone'}]);
 
       });
     </script>

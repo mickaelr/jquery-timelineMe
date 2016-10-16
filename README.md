@@ -13,6 +13,11 @@ npm install jquery-timelineme
 - add jQuery to your project
 - add timelineMe css & js
 
+## TODO
+
+- dynamically add items with json records
+- add to bower
+
 ## Usage
 
 **HTML**
