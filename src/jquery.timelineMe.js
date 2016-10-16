@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------
  *JAVASCRIPT "timelineMe.js"
- *Version:    0.1.8 - 2016
+ *Version:    0.1.9 - 2016
  *author:     Mickaël Roy
  *website:    http://www.mickaelroy.com
  *Licensed MIT
@@ -144,9 +144,16 @@
          * element.
          */
         destroy: function() {
-
-            // Remove any attached data from your plugin
-            this.$el.removeData();
+          // Remove classes added by the plugin
+          this.$el.removeClass('timeline-me-container');
+          this.$el.removeClass('timeline-me-horizontal');
+          this.$el.removeClass('timeline-me-vertical');
+          this.$el.removeClass('no-x-scroll');
+          this.$el.removeClass('no-y-scroll');
+          // Remove child nodes
+          this.$el.empty();
+          // Remove any attached data from your plugin
+          this.$el.removeData();
         },
 
 
@@ -185,8 +192,6 @@
          *
          * @example
          * $('#element').pluginName('collapse', 'show');
-         *
-         * @return element
          */
         collapse: function(method) {
             switch(method) {
@@ -201,6 +206,22 @@
                     this.$el.addClass('timeline-me-collapsed');
                     break;
             }
+        },
+
+        /**
+         * load method
+         *
+         * @example
+         * $('#element').pluginName('load', itemsToAdd);
+         */
+        load: function(items) {
+            if(!items) return;
+            if(!this.settings.items) this.settings.items = [];
+            if(!$.isArray(items)) items = [items];
+            this.settings.items = this.settings.items.concat(items);
+
+            this.destroy();
+            this.init();
         },
 
         /**
